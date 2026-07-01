@@ -186,6 +186,10 @@
 
     async _restore() {
       if (!this.id) return;
+<<<<<<< HEAD
+      if (this._locked()) return; // locked slots always play their file src
+=======
+>>>>>>> 6e66ab13626beb4cf5ef692593cb9f068ba84d86
       const blob = await idbGet(this.id);
       if (blob) this._setBlob(blob);
     }
