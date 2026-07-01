@@ -186,10 +186,7 @@
 
     async _restore() {
       if (!this.id) return;
-<<<<<<< HEAD
       if (this._locked()) return; // locked slots always play their file src
-=======
->>>>>>> 6e66ab13626beb4cf5ef692593cb9f068ba84d86
       const blob = await idbGet(this.id);
       if (blob) this._setBlob(blob);
     }
@@ -255,7 +252,20 @@
       if (poster) v.poster = poster; else v.removeAttribute('poster');
       if (v.getAttribute('src') !== url) { v.src = url; v.load(); }
       v.style.display = 'block';
+      // Hide the drop-ring + empty overlay directly, so a locked/filled slot
+      // never flashes the dashed "drop here" border regardless of when the
+      // host [data-filled] attribute settles relative to the render cycle.
+      if (this._ring) this._ring.style.display = 'none';
+      if (this._empty) this._empty.style.display = 'none';
       this.setAttribute('data-filled', '');
+      // Re-assert once the video actually has data, in case a later render ran.
+      if (!v._ringGuard) {
+        v._ringGuard = true;
+        v.addEventListener('loadeddata', () => {
+          if (this._ring) this._ring.style.display = 'none';
+          if (this._empty) this._empty.style.display = 'none';
+        });
+      }
       if (autoplay) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
     }
 
@@ -287,10 +297,12 @@
       if (!this._userFilled) {
         const src = this.getAttribute('src');
         if (src) { this._showVideo(src); return; }
-        // empty state
+        // empty state — restore the drop-ring + prompt overlay
         this._video.pause && this._video.pause();
         this._video.removeAttribute('src');
         this._video.style.display = 'none';
+        if (this._ring) this._ring.style.display = '';
+        if (this._empty) this._empty.style.display = '';
         this.removeAttribute('data-filled');
       }
     }

@@ -26,14 +26,11 @@
   @keyframes glowpulse{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.9;transform:scale(1.08)}}
   @keyframes gridscroll{0%{background-position:0 0}100%{background-position:0 60px}}
   @keyframes pingdot{0%{transform:scale(.9);opacity:.7}70%{transform:scale(2.4);opacity:0}100%{opacity:0}}
-<<<<<<< HEAD
   @keyframes dashflow{to{stroke-dashoffset:-400}}
   @keyframes nodeblink{0%,100%{opacity:.25}50%{opacity:.9}}
   @keyframes drift{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(14px,-20px) rotate(8deg)}}
   @keyframes drift2{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(-16px,16px) rotate(-10deg)}}
   @keyframes spinslow{to{transform:rotate(360deg)}}
-=======
->>>>>>> 6e66ab13626beb4cf5ef692593cb9f068ba84d86
   .nav-burger{display:none}
   @media(max-width:880px){
     .nav-links{display:none!important}
@@ -55,7 +52,6 @@
   <div style="position:absolute;top:-10%;left:-5%;width:55vw;height:55vw;background:radial-gradient(circle,rgba(47,128,255,.22),transparent 60%);filter:blur(20px);animation:glowpulse 9s ease-in-out infinite"></div>
   <div style="position:absolute;bottom:-15%;right:-10%;width:50vw;height:50vw;background:radial-gradient(circle,rgba(56,225,255,.16),transparent 60%);filter:blur(20px);animation:glowpulse 11s ease-in-out infinite 1s"></div>
   <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse at 50% 0,#000,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 50% 0,#000,transparent 75%);animation:gridscroll 14s linear infinite"></div>
-<<<<<<< HEAD
   <!-- robotics circuit traces -->
   <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;opacity:.5;mask-image:radial-gradient(ellipse at 72% 32%,#000,transparent 80%);-webkit-mask-image:radial-gradient(ellipse at 72% 32%,#000,transparent 80%)">
     <g fill="none" stroke="#2f6fdb" stroke-width="1.4" stroke-opacity=".5" stroke-dasharray="7 11" style="animation:dashflow 12s linear infinite">
@@ -81,8 +77,6 @@
   <svg width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="#38e1ff" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;bottom:12%;left:7%;opacity:.1;animation:drift2 19s ease-in-out infinite"><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/><circle cx="12" cy="12" r="4"/></svg>
   <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#7fd9ff" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;top:58%;right:14%;opacity:.1;animation:spinslow 34s linear infinite"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M19.1 4.9l-2.8 2.8M7.7 16.3l-2.8 2.8"/><circle cx="12" cy="12" r="3.5"/></svg>
   <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#5b9dff" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;top:36%;left:12%;opacity:.1;animation:drift 22s ease-in-out infinite 2s"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg>
-=======
->>>>>>> 6e66ab13626beb4cf5ef692593cb9f068ba84d86
 </div>
 
 <!-- ======================= NAVBAR ======================= -->
@@ -159,14 +153,11 @@
     <div data-reveal="" style="position:relative">
       <div style="position:absolute;inset:-1px;border-radius:26px;background:linear-gradient(140deg,rgba(91,157,255,.5),rgba(56,225,255,.2),transparent);filter:blur(2px);opacity:.7"></div>
       <div style="position:relative;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:#0a1120;box-shadow:0 40px 80px -30px rgba(0,0,0,.9)">
-        <!-- HERO VIDEO — перетащите свой .mp4 прямо сюда (автовоспроизведение, без звука, зациклено).
-             Чтобы зашить постоянное видео в сайт: <video-slot ... src="images/promo.mp4"> -->
-        <div style="position:relative;aspect-ratio:4/3">
-<<<<<<< HEAD
-          <video-slot id="hero-video" autoplay loop muted locked radius="0" src="videos/video1.mp4" style="position:absolute;inset:0;width:100%;height:100%" placeholder=""></video-slot>
-=======
-          <video-slot id="hero-video" autoplay loop muted locked radius="0" style="position:absolute;inset:0;width:100%;height:100%" placeholder=""></video-slot>
->>>>>>> 6e66ab13626beb4cf5ef692593cb9f068ba84d86
+        <!-- HERO VIDEO — свой файл из папки uploads/ (автозапуск, без звука, зациклено).
+             Замена: положите файл uploads/video1.mp4 — и он появится здесь. -->
+        <div style="position:relative;aspect-ratio:4/3;background:#0a1120">
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#4a5878;text-align:center;padding:20px"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg><span style="font-size:12.5px;font-weight:600">uploads/video1.mp4</span></div>
+          <video src="uploads/video1.mp4" autoplay muted loop playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0"></video>
           <div style="position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:20px 22px;pointer-events:none;background:linear-gradient(180deg,transparent 45%,rgba(7,11,22,.85))">
             <div>
               <div data-i18n="video.eyebrow" style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#7fd9ff;font-weight:700">Бейне таныстырылым</div>
@@ -354,23 +345,16 @@
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:40px">
       <div data-reveal="" style="position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#0a1120;aspect-ratio:16/9">
-<<<<<<< HEAD
-        <video-slot id="vid-1" controls locked radius="20" src="videos/video2.mp4" style="position:absolute;inset:0;width:100%;height:100%" placeholder=""></video-slot>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:#4a5878;text-align:center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg><span style="font-size:12px;font-weight:600">uploads/video2.mp4</span></div>
+        <video src="uploads/video2.mp4" controls playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0"></video>
       </div>
       <div data-reveal="" style="position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#0a1120;aspect-ratio:16/9">
-        <video-slot id="vid-2" controls locked radius="20" src="videos/video3.mp4" style="position:absolute;inset:0;width:100%;height:100%" placeholder=""></video-slot>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:#4a5878;text-align:center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg><span style="font-size:12px;font-weight:600">uploads/video3.mp4</span></div>
+        <video src="uploads/video3.mp4" controls playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0"></video>
       </div>
       <div data-reveal="" style="position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#0a1120;aspect-ratio:16/9">
-        <video-slot id="vid-3" controls locked radius="20" src="videos/video4.mp4" style="position:absolute;inset:0;width:100%;height:100%" placeholder=""></video-slot>
-=======
-        <video-slot id="vid-1" controls locked radius="20" style="position:absolute;inset:0;width:100%;height:100%" placeholder=""></video-slot>
-      </div>
-      <div data-reveal="" style="position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#0a1120;aspect-ratio:16/9">
-        <video-slot id="vid-2" controls locked radius="20" style="position:absolute;inset:0;width:100%;height:100%" placeholder=""></video-slot>
-      </div>
-      <div data-reveal="" style="position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#0a1120;aspect-ratio:16/9">
-        <video-slot id="vid-3" controls locked radius="20" style="position:absolute;inset:0;width:100%;height:100%" placeholder=""></video-slot>
->>>>>>> 6e66ab13626beb4cf5ef692593cb9f068ba84d86
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:#4a5878;text-align:center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg><span style="font-size:12px;font-weight:600">uploads/video4.mp4</span></div>
+        <video src="uploads/video4.mp4" controls playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0"></video>
       </div>
     </div>
   </div>
@@ -623,7 +607,7 @@
           <form onSubmit="{{ onSubmit }}" action="https://formsubmit.co/aqtobe_robotics@mail.ru" method="POST" style="display:flex;flex-direction:column;gap:14px">
             <div>
               <label data-i18n="enr.lname" style="display:block;font-size:13px;font-weight:600;color:#aeb9d6;margin-bottom:7px">Ата-ананың аты</label>
-              <input name="Ата-ана / Родитель" type="text" required="" data-i18n-ph="ph.parent" placeholder="Мысалы, Айгерим" style="width:100%;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#eaf0ff;font-size:15px;outline:none" style-focus="border-color:#38e1ff">
+              <input name="Ата-ана / Родитель" type="text" required="" placeholder="" style="width:100%;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#eaf0ff;font-size:15px;outline:none" style-focus="border-color:#38e1ff">
             </div>
             <div>
               <label data-i18n="enr.lphone" style="display:block;font-size:13px;font-weight:600;color:#aeb9d6;margin-bottom:7px">Телефон</label>
@@ -739,10 +723,11 @@ class Component extends DCLogic {
       acceptCookies: () => { try { localStorage.setItem('ar_cookie', 'accepted'); } catch (e) {} this.setState({ cookie: 'accepted' }); },
       declineCookies: () => { try { localStorage.setItem('ar_cookie', 'declined'); } catch (e) {} this.setState({ cookie: 'declined' }); },
       phoneInput: (e) => {
-        // Only digits and a single leading +
-        let v = e.target.value.replace(/[^\d+]/g, '');
-        v = v.replace(/(?!^)\+/g, '');
-        e.target.value = v;
+        // Digits only, optional single leading + , capped at 11 digits.
+        const el = e.target;
+        const hasPlus = /^\s*\+/.test(el.value);
+        const digits = el.value.replace(/\D/g, '').slice(0, 11);
+        el.value = (hasPlus ? '+' : '') + digits;
       },
       onSubmit: async (e) => {
         e.preventDefault();
