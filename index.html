@@ -157,12 +157,18 @@
              Замена: положите файл videos/video1.mp4 — и он появится здесь. -->
         <div style="position:relative;aspect-ratio:4/3;background:#0a1120">
           <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#4a5878;text-align:center;padding:20px"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg><span style="font-size:12.5px;font-weight:600">videos/video1.mp4</span></div>
-          <video src="videos/video1.mp4" autoplay muted loop playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0"></video>
-          <div style="position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:20px 22px;pointer-events:none;background:linear-gradient(180deg,transparent 45%,rgba(7,11,22,.85))">
-            <div>
+          <video id="heroVideo" src="videos/video1.mp4" autoplay muted loop playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0"></video>
+          <div style="position:absolute;left:0;right:0;bottom:0;display:flex;align-items:flex-end;justify-content:space-between;gap:14px;padding:20px 22px;background:linear-gradient(180deg,transparent 45%,rgba(7,11,22,.85))">
+            <div style="pointer-events:none">
               <div data-i18n="video.eyebrow" style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#7fd9ff;font-weight:700">Бейне таныстырылым</div>
               <div data-i18n="video.title" style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:18px;margin-top:4px">Aqtobe Robotics-те бір күн</div>
             </div>
+            <button id="heroSoundBtn" type="button" aria-label="Дыбысты қосу" style="flex:none;display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:9px 14px;color:#fff;background:rgba(8,12,24,.6);backdrop-filter:blur(8px);font:600 13px/1 Manrope,system-ui,sans-serif;transition:background .15s">
+              <span id="heroSoundIcon" style="display:inline-flex">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              </span>
+              <span id="heroSoundLabel">Дыбыс</span>
+            </button>
           </div>
         </div>
       </div>
@@ -346,15 +352,15 @@
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:40px">
       <div data-reveal="" style="position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#0a1120;aspect-ratio:16/9">
         <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:#4a5878;text-align:center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg><span style="font-size:12px;font-weight:600">videos/video2.mp4</span></div>
-        <video src="videos/video2.mp4" controls playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0"></video>
+        <video src="videos/video2.mp4" autoplay muted loop controls playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0"></video>
       </div>
       <div data-reveal="" style="position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#0a1120;aspect-ratio:16/9">
         <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:#4a5878;text-align:center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg><span style="font-size:12px;font-weight:600">videos/video3.mp4</span></div>
-        <video src="videos/video3.mp4" controls playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0"></video>
+        <video src="videos/video3.mp4" autoplay muted loop controls playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0"></video>
       </div>
       <div data-reveal="" style="position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#0a1120;aspect-ratio:16/9">
         <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:#4a5878;text-align:center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg><span style="font-size:12px;font-weight:600">videos/video4.mp4</span></div>
-        <video src="videos/video4.mp4" controls playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0"></video>
+        <video src="videos/video4.mp4" autoplay muted loop controls playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0"></video>
       </div>
     </div>
   </div>
@@ -980,6 +986,64 @@ class Component extends DCLogic {
     }
   }
 }
+</script>
+<!-- ВИДЕО: свойства задаются через JS, т.к. дизайн-рантайм (support.js) при
+     ре-рендере срезает булевы атрибуты muted/loop/controls. Ставим их напрямую
+     как свойства DOM после рендера и повторяем несколько раз, чтобы пережить
+     повторные ре-рендеры канваса. Hero стартует без звука; кнопка включает звук. -->
+<script>
+(function () {
+  var userWantsSound = false;
+  var onSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
+  var offSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
+
+  function hero() { return document.getElementById('heroVideo'); }
+  function gallery() { return Array.prototype.slice.call(document.querySelectorAll('#videos video')); }
+  function tryPlay(v) { if (v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } }
+
+  function syncBtn() {
+    var v = hero(), btn = document.getElementById('heroSoundBtn');
+    if (!v || !btn) return;
+    var icon = document.getElementById('heroSoundIcon'), label = document.getElementById('heroSoundLabel');
+    if (v.muted) {
+      if (icon) icon.innerHTML = offSvg; if (label) label.textContent = 'Дыбыс';
+      btn.setAttribute('aria-label', 'Дыбысты қосу');
+    } else {
+      if (icon) icon.innerHTML = onSvg; if (label) label.textContent = 'Дыбыссыз';
+      btn.setAttribute('aria-label', 'Дыбысты өшіру');
+    }
+  }
+
+  function apply() {
+    var v = hero();
+    if (v) {
+      v.loop = true; v.playsInline = true;
+      if (!userWantsSound) v.muted = true;
+      tryPlay(v);
+    }
+    gallery().forEach(function (g) {
+      g.loop = true; g.playsInline = true; g.controls = true; g.muted = true;
+      tryPlay(g);
+    });
+    syncBtn();
+  }
+
+  // Делегированный клик — переживает замену узлов при ре-рендере канваса.
+  document.addEventListener('click', function (e) {
+    var btn = e.target && e.target.closest ? e.target.closest('#heroSoundBtn') : null;
+    if (!btn) return;
+    var v = hero(); if (!v) return;
+    v.muted = !v.muted;
+    userWantsSound = !v.muted;
+    if (!v.muted) tryPlay(v);
+    syncBtn();
+  });
+
+  window.addEventListener('DOMContentLoaded', apply);
+  window.addEventListener('load', apply);
+  var n = 0, t = setInterval(function () { apply(); if (++n > 12) clearInterval(t); }, 400);
+  apply();
+})();
 </script>
 </body>
 </html>
