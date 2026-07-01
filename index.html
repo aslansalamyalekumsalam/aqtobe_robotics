@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="icon" href="images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<script src="./video-slot.js"></script>
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#070b16;color:#eaf0ff;font-family:'Manrope',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:rgba(56,225,255,.3)}
+  a{color:inherit;text-decoration:none}
+  input,select,textarea,button{font-family:inherit}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+  @keyframes floaty2{0%,100%{transform:translateY(0)}50%{transform:translateY(14px)}}
+  @keyframes glowpulse{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.9;transform:scale(1.08)}}
+  @keyframes gridscroll{0%{background-position:0 0}100%{background-position:0 60px}}
+  @keyframes pingdot{0%{transform:scale(.9);opacity:.7}70%{transform:scale(2.4);opacity:0}100%{opacity:0}}
+  .nav-burger{display:none}
+  @media(max-width:880px){
+    .nav-links{display:none!important}
+    .nav-cta-d{display:none!important}
+    .nav-burger{display:flex!important}
+  }
+  @media(min-width:881px){.mobile-menu{display:none!important}}
+  details>summary{list-style:none;cursor:pointer}
+  details>summary::-webkit-details-marker{display:none}
+  details[open] .faq-chev{transform:rotate(45deg)}
+  .grad-text{background:linear-gradient(100deg,#5b9dff,#38e1ff 55%,#9d7bff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+</style>
+</helmet>
+
+<div style="position:relative;background:#070b16;min-height:100vh;overflow:hidden">
+
+<!-- ambient background -->
+<div style="position:fixed;inset:0;pointer-events:none;z-index:0">
+  <div style="position:absolute;top:-10%;left:-5%;width:55vw;height:55vw;background:radial-gradient(circle,rgba(47,128,255,.22),transparent 60%);filter:blur(20px);animation:glowpulse 9s ease-in-out infinite"></div>
+  <div style="position:absolute;bottom:-15%;right:-10%;width:50vw;height:50vw;background:radial-gradient(circle,rgba(56,225,255,.16),transparent 60%);filter:blur(20px);animation:glowpulse 11s ease-in-out infinite 1s"></div>
+  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse at 50% 0,#000,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 50% 0,#000,transparent 75%);animation:gridscroll 14s linear infinite"></div>
+</div>
+
+<!-- ======================= NAVBAR ======================= -->
+<header style="position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:center;padding:14px 16px">
+  <nav style="width:100%;max-width:1240px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 14px;background:rgba(12,18,34,.6);border:1px solid rgba(255,255,255,.09);border-radius:18px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 16px 40px -20px rgba(0,0,0,.7)">
+    <a href="#home" onClick="{{ closeMenu }}" style="display:flex;align-items:center;gap:10px;flex:none">
+      <span style="display:flex;align-items:center;background:#fff;border-radius:12px;padding:7px 12px;box-shadow:0 6px 18px -8px rgba(56,225,255,.6)">
+        <img src="images/logo.png" alt="Aqtobe Robotics" style="height:30px;width:auto;display:block">
+      </span>
+    </a>
+    <div class="nav-links" style="display:flex;align-items:center;gap:22px;font-size:14.5px;font-weight:600;color:#aeb9d6">
+      <a href="#about" data-i18n="nav.about" style="transition:color .2s" style-hover="color:#fff">Мектеп туралы</a>
+      <a href="#directions" data-i18n="nav.directions" style="transition:color .2s" style-hover="color:#fff">Бағыттар</a>
+      <a href="#achievements" data-i18n="nav.achievements" style="transition:color .2s" style-hover="color:#fff">Жетістіктер</a>
+      <a href="#videos" data-i18n="nav.videos" style="transition:color .2s" style-hover="color:#fff">Видео</a>
+      <a href="#reviews" data-i18n="nav.reviews" style="transition:color .2s" style-hover="color:#fff">Пікірлер</a>
+      <a href="#faq" style="transition:color .2s" style-hover="color:#fff">FAQ</a>
+      <a href="#contacts" data-i18n="nav.contacts" style="transition:color .2s" style-hover="color:#fff">Байланыс</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;flex:none">
+      <div style="display:flex;border:1px solid rgba(255,255,255,.14);border-radius:10px;overflow:hidden">
+        <button id="langKz" onClick="{{ setKz }}" style="border:none;cursor:pointer;font-weight:800;font-size:12.5px;padding:8px 12px;font-family:inherit;background:linear-gradient(100deg,#5b9dff,#38e1ff);color:#04111f">ҚАЗ</button>
+        <button id="langRu" onClick="{{ setRu }}" style="border:none;cursor:pointer;font-weight:800;font-size:12.5px;padding:8px 12px;font-family:inherit;background:transparent;color:#9fabc9">РУС</button>
+      </div>
+      <a class="nav-cta-d" href="#enroll" data-i18n="nav.cta" style="display:flex;align-items:center;gap:8px;padding:11px 18px;border-radius:12px;font-weight:700;font-size:14.5px;color:#04111f;background:linear-gradient(100deg,#5b9dff,#38e1ff);box-shadow:0 10px 26px -10px rgba(56,225,255,.8);transition:transform .2s" style-hover="transform:translateY(-2px)">Сынақ сабақ</a>
+      <button class="nav-burger" onClick="{{ toggleMenu }}" aria-label="Меню" style="display:none;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#eaf0ff;cursor:pointer">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      </button>
+    </div>
+  </nav>
+  <!-- mobile menu -->
+  <div class="mobile-menu" style="{{ menuStyle }}">
+    <div style="position:fixed;top:84px;left:16px;right:16px;z-index:49;display:flex;flex-direction:column;gap:4px;padding:14px;background:rgba(12,18,34,.96);border:1px solid rgba(255,255,255,.1);border-radius:18px;backdrop-filter:blur(18px);box-shadow:0 24px 60px -20px rgba(0,0,0,.8)">
+      <a href="#about" data-i18n="nav.about" onClick="{{ closeMenu }}" style="padding:13px 14px;border-radius:12px;font-weight:600;color:#cdd6ee" style-hover="background:rgba(255,255,255,.06)">Мектеп туралы</a>
+      <a href="#directions" data-i18n="nav.directions" onClick="{{ closeMenu }}" style="padding:13px 14px;border-radius:12px;font-weight:600;color:#cdd6ee" style-hover="background:rgba(255,255,255,.06)">Бағыттар</a>
+      <a href="#achievements" data-i18n="nav.achievements" onClick="{{ closeMenu }}" style="padding:13px 14px;border-radius:12px;font-weight:600;color:#cdd6ee" style-hover="background:rgba(255,255,255,.06)">Жетістіктер</a>
+      <a href="#videos" data-i18n="nav.videos" onClick="{{ closeMenu }}" style="padding:13px 14px;border-radius:12px;font-weight:600;color:#cdd6ee" style-hover="background:rgba(255,255,255,.06)">Видео</a>
+      <a href="#reviews" data-i18n="nav.reviews" onClick="{{ closeMenu }}" style="padding:13px 14px;border-radius:12px;font-weight:600;color:#cdd6ee" style-hover="background:rgba(255,255,255,.06)">Пікірлер</a>
+      <a href="#faq" onClick="{{ closeMenu }}" style="padding:13px 14px;border-radius:12px;font-weight:600;color:#cdd6ee" style-hover="background:rgba(255,255,255,.06)">FAQ</a>
+      <a href="#contacts" data-i18n="nav.contacts" onClick="{{ closeMenu }}" style="padding:13px 14px;border-radius:12px;font-weight:600;color:#cdd6ee" style-hover="background:rgba(255,255,255,.06)">Байланыс</a>
+      <a href="#enroll" data-i18n="navm.enroll" onClick="{{ closeMenu }}" style="margin-top:6px;text-align:center;padding:14px;border-radius:12px;font-weight:700;color:#04111f;background:linear-gradient(100deg,#5b9dff,#38e1ff)">Тегін сабаққа жазылу</a>
+    </div>
+  </div>
+</header>
+
+<!-- ======================= HERO ======================= -->
+<section id="home" style="position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:140px 24px 80px">
+  <div style="width:100%;max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:48px;align-items:center">
+    <!-- left -->
+    <div data-reveal="">
+      <div style="display:inline-flex;align-items:center;gap:9px;padding:8px 15px;border-radius:999px;background:rgba(56,225,255,.1);border:1px solid rgba(56,225,255,.28);font-size:13px;font-weight:700;letter-spacing:.04em;color:#9fe9ff;text-transform:uppercase">
+        <span style="position:relative;display:flex;width:8px;height:8px"><span style="position:absolute;inset:0;border-radius:50%;background:#38e1ff;animation:pingdot 1.8s ease-out infinite"></span><span style="position:relative;width:8px;height:8px;border-radius:50%;background:#38e1ff"></span></span>
+        <span data-i18n="hero.badge">Ақтөбедегі №1 робототехника мектебі</span>
+      </div>
+      <h1 data-i18n="hero.title" style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:clamp(30px,5.2vw,64px);line-height:1.04;letter-spacing:-.02em;margin:22px 0 0;overflow-wrap:anywhere">
+        Болашақ <span class="grad-text">инженерлерін</span> тәрбиелейміз
+      </h1>
+      <p data-i18n="hero.subtitle" style="margin:22px 0 0;font-size:clamp(16px,1.6vw,19px);line-height:1.65;color:#9fabc9;max-width:540px">
+        AQTOBE ROBOTICS — робототехника және программалау мектебі, <b style="color:#eaf0ff">4–16 жас</b> аралығындағы балаларға арналған. FIRST халықаралық турнирлерінің чемпиондарын дайындап, балаңыздың технологияға деген қызығушылығын оятамыз.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:34px">
+        <a href="#enroll" data-i18n="hero.cta1" style="display:flex;align-items:center;gap:9px;padding:16px 26px;border-radius:14px;font-weight:700;font-size:16px;color:#04111f;background:linear-gradient(100deg,#5b9dff,#38e1ff);box-shadow:0 16px 38px -12px rgba(56,225,255,.85);transition:transform .2s" style-hover="transform:translateY(-3px)">Тегін жазылу</a>
+        <a href="#directions" data-i18n="hero.cta2" style="display:flex;align-items:center;gap:9px;padding:16px 24px;border-radius:14px;font-weight:700;font-size:16px;color:#eaf0ff;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);transition:background .2s" style-hover="background:rgba(255,255,255,.1)">Оқу бағыттары</a>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:30px;margin-top:44px">
+        <div><div data-count="6" style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:30px;color:#fff">0</div><div data-i18n="hero.s1" style="font-size:13.5px;color:#8190b0;margin-top:2px">бағыт</div></div>
+        <div style="width:1px;background:rgba(255,255,255,.1)"></div>
+        <div><div data-count="500" data-suffix="+" style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:30px;color:#fff">0</div><div data-i18n="hero.s2" style="font-size:13.5px;color:#8190b0;margin-top:2px">оқушы</div></div>
+        <div style="width:1px;background:rgba(255,255,255,.1)"></div>
+        <div><div data-count="50" data-suffix="+" style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:30px;color:#fff">0</div><div data-i18n="hero.s3" style="font-size:13.5px;color:#8190b0;margin-top:2px">марапат</div></div>
+      </div>
+    </div>
+    <!-- right visual: video slot -->
+    <div data-reveal="" style="position:relative">
+      <div style="position:absolute;inset:-1px;border-radius:26px;background:linear-gradient(140deg,rgba(91,157,255,.5),rgba(56,225,255,.2),transparent);filter:blur(2px);opacity:.7"></div>
+      <div style="position:relative;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:#0a1120;box-shadow:0 40px 80px -30px rgba(0,0,0,.9)">
+        <!-- HERO VIDEO — перетащите свой .mp4 прямо сюда (автовоспроизведение, без звука, зациклено).
+             Чтобы зашить постоянное видео в сайт: <video-slot ... src="images/promo.mp4"> -->
+        <div style="position:relative;aspect-ratio:4/3">
+          <video-slot id="hero-video" autoplay loop muted locked radius="0" style="position:absolute;inset:0;width:100%;height:100%" placeholder=""></video-slot>
+          <div style="position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:20px 22px;pointer-events:none;background:linear-gradient(180deg,transparent 45%,rgba(7,11,22,.85))">
+            <div>
+              <div data-i18n="video.eyebrow" style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#7fd9ff;font-weight:700">Бейне таныстырылым</div>
+              <div data-i18n="video.title" style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:18px;margin-top:4px">Aqtobe Robotics-те бір күн</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- floating chips -->
+      <div style="position:absolute;top:-22px;left:-18px;display:flex;align-items:center;gap:10px;padding:12px 16px;background:rgba(12,18,34,.85);border:1px solid rgba(255,255,255,.12);border-radius:14px;backdrop-filter:blur(12px);box-shadow:0 18px 40px -16px rgba(0,0,0,.8);animation:floaty 5s ease-in-out infinite">
+        <div style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:rgba(56,225,255,.16);color:#7fd9ff">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
+        </div>
+        <div><div style="font-weight:800;font-size:15px">FIRST Global</div><div data-i18n="chip1.sub" style="font-size:12px;color:#8190b0">халықаралық турнирлер</div></div>
+      </div>
+      <div style="position:absolute;bottom:-20px;right:-14px;display:flex;align-items:center;gap:10px;padding:12px 16px;background:rgba(12,18,34,.85);border:1px solid rgba(255,255,255,.12);border-radius:14px;backdrop-filter:blur(12px);box-shadow:0 18px 40px -16px rgba(0,0,0,.8);animation:floaty2 6s ease-in-out infinite">
+        <div style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:rgba(91,157,255,.18);color:#a9c6ff">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8"></path><path d="m4.93 10.93 1.41 1.41"></path><path d="M2 18h2"></path><path d="M20 18h2"></path><path d="m19.07 10.93-1.41 1.41"></path><path d="M22 22H2"></path><path d="m8 22 4-10 4 10"></path></svg>
+        </div>
+        <div><div data-i18n="chip2.title" style="font-weight:800;font-size:15px">Түркия · АҚШ</div><div data-i18n="chip2.sub" style="font-size:12px;color:#8190b0">турнирлерге квота</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= TRUST STRIP ======================= -->
+<section style="position:relative;z-index:1;padding:0 24px 30px">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px 28px;padding:22px 28px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07)">
+    <span data-i18n="trust.label" style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#6c7a9c;font-weight:700">Бағдарлама қатысушылары</span>
+    <span style="font-family:'Unbounded',sans-serif;font-weight:600;color:#cdd6ee">FIRST LEGO League</span>
+    <span style="color:#33425f">/</span>
+    <span style="font-family:'Unbounded',sans-serif;font-weight:600;color:#cdd6ee">FIRST Tech Challenge</span>
+    <span style="color:#33425f">/</span>
+    <span style="font-family:'Unbounded',sans-serif;font-weight:600;color:#cdd6ee">FIRST Global</span>
+    <span style="color:#33425f">/</span>
+    <span style="font-family:'Unbounded',sans-serif;font-weight:600;color:#cdd6ee">NASA Space Apps</span>
+  </div>
+</section>
+
+<!-- ======================= ABOUT ======================= -->
+<section id="about" style="position:relative;z-index:1;padding:100px 24px">
+  <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:48px;align-items:center">
+    <div data-reveal="">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <image-slot id="about-1" style="width:100%;aspect-ratio:3/4;grid-row:span 2" shape="rounded" radius="18" placeholder="Фото с занятия"></image-slot>
+        <image-slot id="about-2" style="width:100%;aspect-ratio:4/3" shape="rounded" radius="18" placeholder="Фото команды"></image-slot>
+        <image-slot id="about-3" style="width:100%;aspect-ratio:4/3" shape="rounded" radius="18" placeholder="Фото робота"></image-slot>
+      </div>
+    </div>
+    <div data-reveal="">
+      <div data-i18n="about.eyebrow" style="font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#7fd9ff;font-weight:700">Мектеп туралы</div>
+      <h2 data-i18n="about.title" style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(28px,3.6vw,42px);line-height:1.1;margin:14px 0 0;letter-spacing:-.02em">Үйірме емес — инженерлік команда</h2>
+      <p data-i18n="about.p1" style="margin:18px 0 0;font-size:17px;line-height:1.7;color:#9fabc9">
+        Aqtobe Robotics — Ақтөбедегі жетекші робототехника мектептерінің бірі. Біз жай ғана конструктордан робот жинамаймыз: оқушыларымыз нақты инженерлік жобаларды құрастырып, программалап, республикалық және халықаралық турнирлерде қорғайды.
+      </p>
+      <p data-i18n="about.p2" style="margin:14px 0 0;font-size:17px;line-height:1.7;color:#9fabc9">
+        <b style="color:#eaf0ff">Біздің миссиямыз</b> — тәжірибе, жарыстар мен командалық жұмыс арқылы инженерлердің, IT-мамандардың және технологиялық көшбасшылардың жаңа буынын қалыптастыру.
+      </p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:30px">
+        <div style="padding:18px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+          <div style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:26px;color:#fff">4–16</div>
+          <div data-i18n="about.s1" style="font-size:13.5px;color:#8190b0;margin-top:4px">оқушылар жасы</div>
+        </div>
+        <div style="padding:18px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+          <div style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:26px;color:#fff">6–8</div>
+          <div data-i18n="about.s2" style="font-size:13.5px;color:#8190b0;margin-top:4px">топтағы бала</div>
+        </div>
+        <div style="padding:18px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+          <div style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:26px;color:#fff">100%</div>
+          <div data-i18n="about.s3" style="font-size:13.5px;color:#8190b0;margin-top:4px">сабақтағы тәжірибе</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= DIRECTIONS ======================= -->
+<section id="directions" style="position:relative;z-index:1;padding:90px 24px">
+  <div style="max-width:1240px;margin:0 auto">
+    <div data-reveal="" style="text-align:center;max-width:680px;margin:0 auto">
+      <div data-i18n="dir.eyebrow" style="font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#7fd9ff;font-weight:700">Оқу бағыттары</div>
+      <h2 data-i18n="dir.title" style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(28px,3.6vw,42px);line-height:1.1;margin:14px 0 0;letter-spacing:-.02em">Алғашқы мотордан чемпионатқа дейінгі жол</h2>
+      <p data-i18n="dir.sub" style="margin:16px 0 0;font-size:17px;line-height:1.65;color:#9fabc9">Алты саты — әр бала жасына сай деңгейден бастап, жарыс командасына дейін өседі.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:48px">
+
+      <div data-reveal="" style="position:relative;padding:28px;border-radius:22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);overflow:hidden;transition:transform .25s,border-color .25s,background .25s" style-hover="transform:translateY(-6px);border-color:rgba(56,225,255,.4);background:rgba(56,225,255,.06)">
+        <div style="display:flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:14px;background:linear-gradient(135deg,rgba(91,157,255,.25),rgba(56,225,255,.15));color:#7fd9ff;border:1px solid rgba(56,225,255,.25)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" x2="8" y1="16" y2="16"></line><line x1="16" x2="16" y1="16" y2="16"></line></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:18px;flex-wrap:wrap">
+          <h3 style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:21px;margin:0">WeDo 2.0</h3>
+          <span data-i18n="dir.a1" style="font-size:12px;font-weight:700;color:#04111f;background:#7fd9ff;padding:3px 9px;border-radius:999px">4–7 жас</span>
+        </div>
+        <p data-i18n="dir.d1" style="margin:12px 0 0;font-size:15px;line-height:1.6;color:#9fabc9">LEGO Education көмегімен робототехникадағы алғашқы қадамдар. Балалар қарапайым механизмдерді жинап, оларды планшеттегі блоктық программалау арқылы «жандандырады», моторика мен инженерлік ойлауды дамытады.</p>
+      </div>
+
+      <div data-reveal="" style="position:relative;padding:28px;border-radius:22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);overflow:hidden;transition:transform .25s,border-color .25s,background .25s" style-hover="transform:translateY(-6px);border-color:rgba(56,225,255,.4);background:rgba(56,225,255,.06)">
+        <div style="display:flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:14px;background:linear-gradient(135deg,rgba(91,157,255,.25),rgba(56,225,255,.15));color:#7fd9ff;border:1px solid rgba(56,225,255,.25)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:18px;flex-wrap:wrap">
+          <h3 style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:21px;margin:0">Scratch</h3>
+          <span data-i18n="dir.a2" style="font-size:12px;font-weight:700;color:#04111f;background:#7fd9ff;padding:3px 9px;border-radius:999px">7–10 жас</span>
+        </div>
+        <p data-i18n="dir.d2" style="margin:12px 0 0;font-size:15px;line-height:1.6;color:#9fabc9">Визуалды программалау: оқушылар өз ойындарын, мультфильмдерін және интерактивті оқиғаларын жасап, күрделі кодсыз алгоритмдерді, циклдерді және логиканы меңгереді.</p>
+      </div>
+
+      <div data-reveal="" style="position:relative;padding:28px;border-radius:22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);overflow:hidden;transition:transform .25s,border-color .25s,background .25s" style-hover="transform:translateY(-6px);border-color:rgba(56,225,255,.4);background:rgba(56,225,255,.06)">
+        <div style="display:flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:14px;background:linear-gradient(135deg,rgba(91,157,255,.25),rgba(56,225,255,.15));color:#7fd9ff;border:1px solid rgba(56,225,255,.25)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"></path><path d="m2 17 10 5 10-5"></path><path d="m2 12 10 5 10-5"></path></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:18px;flex-wrap:wrap">
+          <h3 style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:21px;margin:0">LEGO EV3</h3>
+          <span data-i18n="dir.a3" style="font-size:12px;font-weight:700;color:#04111f;background:#7fd9ff;padding:3px 9px;border-radius:999px">9–13 жас</span>
+        </div>
+        <p data-i18n="dir.d3" style="margin:12px 0 0;font-size:15px;line-height:1.6;color:#9fabc9">LEGO Mindstorms EV3 негізінде автономды роботтарды жинау және программалау. Датчиктермен және моторлармен жұмыс, командаларды FIRST LEGO League жарысына дайындау.</p>
+      </div>
+
+      <div data-reveal="" style="position:relative;padding:28px;border-radius:22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);overflow:hidden;transition:transform .25s,border-color .25s,background .25s" style-hover="transform:translateY(-6px);border-color:rgba(56,225,255,.4);background:rgba(56,225,255,.06)">
+        <div style="display:flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:14px;background:linear-gradient(135deg,rgba(91,157,255,.25),rgba(56,225,255,.15));color:#7fd9ff;border:1px solid rgba(56,225,255,.25)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:18px;flex-wrap:wrap">
+          <h3 style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:21px;margin:0">Arduino</h3>
+          <span data-i18n="dir.a4" style="font-size:12px;font-weight:700;color:#04111f;background:#7fd9ff;padding:3px 9px;border-radius:999px">11–16 жас</span>
+        </div>
+        <p data-i18n="dir.d4" style="margin:12px 0 0;font-size:15px;line-height:1.6;color:#9fabc9">Электроника және Arduino микроконтроллерлері: схемалар, датчиктер, C++ тілінде программалау. Оқушылар нақты инженерлік құрылғылар мен ақылды жүйелер жасайды.</p>
+      </div>
+
+      <div data-reveal="" style="position:relative;padding:28px;border-radius:22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);overflow:hidden;transition:transform .25s,border-color .25s,background .25s" style-hover="transform:translateY(-6px);border-color:rgba(56,225,255,.4);background:rgba(56,225,255,.06)">
+        <div style="display:flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:14px;background:linear-gradient(135deg,rgba(91,157,255,.25),rgba(56,225,255,.15));color:#7fd9ff;border:1px solid rgba(56,225,255,.25)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:18px;flex-wrap:wrap">
+          <h3 style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:21px;margin:0">3D-модельдеу</h3>
+          <span data-i18n="dir.a5" style="font-size:12px;font-weight:700;color:#04111f;background:#7fd9ff;padding:3px 9px;border-radius:999px">10–16 жас</span>
+        </div>
+        <p data-i18n="dir.d5" style="margin:12px 0 0;font-size:15px;line-height:1.6;color:#9fabc9">Tinkercad және Fusion 360-та бөлшектерді жобалап, 3D-принтерде басып шығару. Идеядан дайын физикалық прототипке дейінгі толық жол.</p>
+      </div>
+
+      <div data-reveal="" style="position:relative;padding:28px;border-radius:22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);overflow:hidden;transition:transform .25s,border-color .25s,background .25s" style-hover="transform:translateY(-6px);border-color:rgba(56,225,255,.4);background:rgba(56,225,255,.06)">
+        <div style="display:flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:14px;background:linear-gradient(135deg,rgba(91,157,255,.25),rgba(56,225,255,.15));color:#7fd9ff;border:1px solid rgba(56,225,255,.25)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z"></path></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:18px;flex-wrap:wrap">
+          <h3 style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:21px;margin:0">Дәнекерлеу</h3>
+          <span data-i18n="dir.a6" style="font-size:12px;font-weight:700;color:#04111f;background:#7fd9ff;padding:3px 9px;border-radius:999px">12–16 жас</span>
+        </div>
+        <p data-i18n="dir.d6" style="margin:12px 0 0;font-size:15px;line-height:1.6;color:#9fabc9">Схемотехника негіздері және дәнекерлеу қаламымен қауіпсіз жұмыс. Электронды платаларды құрастыру, диагностика және өз құрылғыларын жинау.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======================= GALLERY ======================= -->
+<section id="gallery" style="position:relative;z-index:1;padding:90px 24px">
+  <div style="max-width:1240px;margin:0 auto">
+    <div data-reveal="" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px">
+      <div>
+        <div data-i18n="gal.eyebrow" style="font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#7fd9ff;font-weight:700">Галерея</div>
+        <h2 data-i18n="gal.title" style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(28px,3.6vw,42px);line-height:1.1;margin:14px 0 0;letter-spacing:-.02em">Мектеп өмірі — кадрларда</h2>
+      </div>
+      <p data-i18n="gal.sub" style="max-width:380px;font-size:15.5px;line-height:1.6;color:#8190b0;margin:0">Сабақтар, турнирлер, сапарлар мен жеңістер.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));grid-auto-rows:210px;gap:14px;margin-top:40px">
+      <image-slot id="gal-1" style="width:100%;height:100%;grid-row:span 2" shape="rounded" radius="18" placeholder="photo1.jpg"></image-slot>
+      <image-slot id="gal-2" style="width:100%;height:100%" shape="rounded" radius="18" placeholder="photo2.jpg"></image-slot>
+      <image-slot id="gal-3" style="width:100%;height:100%" shape="rounded" radius="18" placeholder="photo3.jpg"></image-slot>
+      <image-slot id="gal-4" style="width:100%;height:100%;grid-column:span 2" shape="rounded" radius="18" placeholder="photo4.jpg"></image-slot>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= VIDEO GALLERY ======================= -->
+<section id="videos" style="position:relative;z-index:1;padding:90px 24px">
+  <div style="max-width:1240px;margin:0 auto">
+    <div data-reveal="" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px">
+      <div>
+        <div data-i18n="vid.eyebrow" style="font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#7fd9ff;font-weight:700">Видео</div>
+        <h2 data-i18n="vid.title" style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(28px,3.6vw,42px);line-height:1.1;margin:14px 0 0;letter-spacing:-.02em">Мектеп қозғалыста</h2>
+      </div>
+      <p data-i18n="vid.sub" style="max-width:420px;font-size:15.5px;line-height:1.6;color:#8190b0;margin:0">Сабақтар, роботтар мен жарыстардан үзінділер.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:40px">
+      <div data-reveal="" style="position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#0a1120;aspect-ratio:16/9">
+        <video-slot id="vid-1" controls locked radius="20" style="position:absolute;inset:0;width:100%;height:100%" placeholder=""></video-slot>
+      </div>
+      <div data-reveal="" style="position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#0a1120;aspect-ratio:16/9">
+        <video-slot id="vid-2" controls locked radius="20" style="position:absolute;inset:0;width:100%;height:100%" placeholder=""></video-slot>
+      </div>
+      <div data-reveal="" style="position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#0a1120;aspect-ratio:16/9">
+        <video-slot id="vid-3" controls locked radius="20" style="position:absolute;inset:0;width:100%;height:100%" placeholder=""></video-slot>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ACHIEVEMENTS ======================= -->
+<section id="achievements" style="position:relative;z-index:1;padding:100px 24px;background:linear-gradient(180deg,transparent,rgba(20,30,56,.5),transparent)">
+  <div style="max-width:1240px;margin:0 auto">
+    <div data-reveal="" style="text-align:center;max-width:720px;margin:0 auto">
+      <div data-i18n="ach.eyebrow" style="font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#7fd9ff;font-weight:700">Жетістіктер</div>
+      <h2 data-i18n="ach.title" style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(28px,3.6vw,42px);line-height:1.1;margin:14px 0 0;letter-spacing:-.02em">Оқушыларымыз — республика мен әлем аренасында</h2>
+      <p data-i18n="ach.sub" style="margin:16px 0 0;font-size:17px;line-height:1.65;color:#9fabc9">Біз командаларды FIRST LEGO League, FIRST Tech Challenge және FIRST Global Challenge халықаралық бағдарламаларына дайындаймыз.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-top:46px">
+      <div data-reveal="" style="text-align:center;padding:26px 16px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+        <div data-count="50" data-suffix="+" style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:40px;background:linear-gradient(100deg,#5b9dff,#38e1ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">0</div>
+        <div data-i18n="ach.st1l" style="font-size:14px;color:#9fabc9;margin-top:6px">марапат пен номинация</div>
+      </div>
+      <div data-reveal="" style="text-align:center;padding:26px 16px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+        <div data-count="2" style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:40px;background:linear-gradient(100deg,#5b9dff,#38e1ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">0</div>
+        <div data-i18n="ach.st2l" style="font-size:14px;color:#9fabc9;margin-top:6px">шетелге квота (Түркия, АҚШ)</div>
+      </div>
+      <div data-reveal="" style="text-align:center;padding:26px 16px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+        <div data-count="500" data-suffix="+" style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:40px;background:linear-gradient(100deg,#5b9dff,#38e1ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">0</div>
+        <div data-i18n="ach.st3l" style="font-size:14px;color:#9fabc9;margin-top:6px">мектеп түлегі</div>
+      </div>
+      <div data-reveal="" style="text-align:center;padding:26px 16px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+        <div data-count="7" data-suffix=" жыл" style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:40px;background:linear-gradient(100deg,#5b9dff,#38e1ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">0</div>
+        <div data-i18n="ach.st4l" style="font-size:14px;color:#9fabc9;margin-top:6px">команда дайындау тәжірибесі</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:24px">
+      <div data-reveal="" style="padding:30px;border-radius:22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;background:rgba(91,157,255,.16);color:#a9c6ff"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg></div>
+          <h3 data-i18n="ach.c1title" style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:20px;margin:0">Республикалық деңгей</h3>
+        </div>
+        <ul style="list-style:none;padding:0;margin:18px 0 0;display:flex;flex-direction:column;gap:14px">
+          <li style="display:flex;gap:12px"><span style="flex:none;margin-top:7px;width:7px;height:7px;border-radius:50%;background:#5b9dff"></span><span data-i18n="ach.c1b1" style="font-size:15px;line-height:1.55;color:#9fabc9"><b style="color:#eaf0ff">FTC және FLL Қазақстан.</b> FIRST Tech Challenge және FIRST LEGO League лигаларының республикалық кезеңдеріне тұрақты қатысу, жүлделі орындар мен келесі кезеңге жолдама.</span></li>
+          <li style="display:flex;gap:12px"><span style="flex:none;margin-top:7px;width:7px;height:7px;border-radius:50%;background:#5b9dff"></span><span data-i18n="ach.c1b2" style="font-size:15px;line-height:1.55;color:#9fabc9"><b style="color:#eaf0ff">RoboLand, RoboZerde, Astana FIRST Regional.</b> Қазақстанның ірі робототехника фестивальдеріне тұрақты сапарлар мен жүлделі орындар.</span></li>
+          <li style="display:flex;gap:12px"><span style="flex:none;margin-top:7px;width:7px;height:7px;border-radius:50%;background:#5b9dff"></span><span data-i18n="ach.c1b3" style="font-size:15px;line-height:1.55;color:#9fabc9"><b style="color:#eaf0ff">Арнайы марапаттар.</b> Инженерлік шешімдер, дизайн және командалық жұмыс үшін Judges Choice, Innovate Award, Connect Award, Engineering Excellence Award.</span></li>
+        </ul>
+      </div>
+      <div data-reveal="" style="padding:30px;border-radius:22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;background:rgba(56,225,255,.14);color:#7fd9ff"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></div>
+          <h3 data-i18n="ach.c2title" style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:20px;margin:0">Халықаралық турнирлерге квоталар</h3>
+        </div>
+        <ul style="list-style:none;padding:0;margin:18px 0 0;display:flex;flex-direction:column;gap:14px">
+          <li style="display:flex;gap:12px"><span style="flex:none;margin-top:7px;width:7px;height:7px;border-radius:50%;background:#38e1ff"></span><span data-i18n="ach.c2b1" style="font-size:15px;line-height:1.55;color:#9fabc9"><b style="color:#eaf0ff">Түркия.</b> Мектеп командасы Түркиядағы халықаралық робототехника жарыстарына квота жеңіп, өңірді өкілдеу құқығына ие болды.</span></li>
+          <li style="display:flex;gap:12px"><span style="flex:none;margin-top:7px;width:7px;height:7px;border-radius:50%;background:#38e1ff"></span><span data-i18n="ach.c2b2" style="font-size:15px;line-height:1.55;color:#9fabc9"><b style="color:#eaf0ff">АҚШ.</b> Америкадағы халықаралық жарыстарға квота — командаларымыздың дайындық деңгейінің жоғары бағасы.</span></li>
+          <li style="display:flex;gap:12px"><span style="flex:none;margin-top:7px;width:7px;height:7px;border-radius:50%;background:#38e1ff"></span><span data-i18n="ach.c2b3" style="font-size:15px;line-height:1.55;color:#9fabc9"><b style="color:#eaf0ff">NASA Space Apps, AEROO Space Settlement.</b> Мектептің ғарыш және инженерлік инновациялар саласындағы жобалық бағыттары.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div data-reveal="" style="margin-top:24px;padding:32px;border-radius:22px;background:linear-gradient(135deg,rgba(91,157,255,.12),rgba(56,225,255,.06));border:1px solid rgba(56,225,255,.2)">
+      <h3 data-i18n="ach.projtitle" style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:20px;margin:0">Біздің жобалар</h3>
+      <p data-i18n="ach.projintro" style="margin:12px 0 0;font-size:15.5px;color:#9fabc9;line-height:1.6">Aqtobe Robotics-те оқушылар нақты инженерлік міндеттермен жұмыс істейді:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:18px">
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.04)"><svg style="flex:none;margin-top:1px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7fd9ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="ach.p1" style="font-size:14.5px;color:#cdd6ee">FTC/FLL маусымдық міндеттеріне арналған жарыс роботтарын жинау</span></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.04)"><svg style="flex:none;margin-top:1px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7fd9ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="ach.p2" style="font-size:14.5px;color:#cdd6ee">Автономды программалау және машиналық көру</span></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.04)"><svg style="flex:none;margin-top:1px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7fd9ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="ach.p3" style="font-size:14.5px;color:#cdd6ee">Инженерлік құжаттама және 3D-модельдеу</span></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.04)"><svg style="flex:none;margin-top:1px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7fd9ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="ach.p4" style="font-size:14.5px;color:#cdd6ee">Дрондар мен гуманоид роботтарды әзірлеу</span></div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.04)"><svg style="flex:none;margin-top:1px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7fd9ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="ach.p5" style="font-size:14.5px;color:#cdd6ee">Техникалық жобаларды таныстыру және қорғау</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= WHY US ======================= -->
+<section id="why" style="position:relative;z-index:1;padding:90px 24px">
+  <div style="max-width:1240px;margin:0 auto">
+    <div data-reveal="" style="text-align:center;max-width:680px;margin:0 auto">
+      <div data-i18n="why.eyebrow" style="font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#7fd9ff;font-weight:700">Неліктен бізді таңдайды</div>
+      <h2 data-i18n="why.title" style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(28px,3.6vw,42px);line-height:1.1;margin:14px 0 0;letter-spacing:-.02em">Ата-аналар бізге ең қымбаттысын сенеді</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:46px">
+      <div data-reveal="" style="padding:26px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+        <div style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:rgba(56,225,255,.14);color:#7fd9ff"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg></div>
+        <h3 data-i18n="why.t1" style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:18px;margin:16px 0 0">Чемпион тренерлер</h3>
+        <p data-i18n="why.d1" style="margin:9px 0 0;font-size:14.5px;line-height:1.6;color:#9fabc9">FIRST турнирлеріне команда дайындау тәжірибесі мен жеке марапаттары бар ұстаздар.</p>
+      </div>
+      <div data-reveal="" style="padding:26px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+        <div style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:rgba(56,225,255,.14);color:#7fd9ff"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path><path d="M2 12h20"></path></svg></div>
+        <h3 data-i18n="why.t2" style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:18px;margin:16px 0 0">Нақты жарыстар</h3>
+        <p data-i18n="why.d2" style="margin:9px 0 0;font-size:14.5px;line-height:1.6;color:#9fabc9">Теория емес — турнирлер: қалалық және республикалықтан халықаралық квоталарға дейін.</p>
+      </div>
+      <div data-reveal="" style="padding:26px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+        <div style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:rgba(56,225,255,.14);color:#7fd9ff"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"></path></svg></div>
+        <h3 data-i18n="why.t3" style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:18px;margin:16px 0 0">Заманауи жабдық</h3>
+        <p data-i18n="why.d3" style="margin:9px 0 0;font-size:14.5px;line-height:1.6;color:#9fabc9">LEGO, Arduino, 3D-принтерлер, дрондар және дәнекерлеу станциялары — бәрі тәжірибе үшін.</p>
+      </div>
+      <div data-reveal="" style="padding:26px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+        <div style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:rgba(56,225,255,.14);color:#7fd9ff"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+        <h3 data-i18n="why.t4" style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:18px;margin:16px 0 0">Шағын топтар</h3>
+        <p data-i18n="why.d4" style="margin:9px 0 0;font-size:14.5px;line-height:1.6;color:#9fabc9">Топта 6–8 бала: әр балаға назар аударылады және ол қолымен жұмыс істейді.</p>
+      </div>
+      <div data-reveal="" style="padding:26px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+        <div style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:rgba(56,225,255,.14);color:#7fd9ff"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg></div>
+        <h3 data-i18n="why.t5" style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:18px;margin:16px 0 0">Жобалық ойлау</h3>
+        <p data-i18n="why.d5" style="margin:9px 0 0;font-size:14.5px;line-height:1.6;color:#9fabc9">Бала идеяны сызбадан жұмыс істейтін құрылғыға және оны қорғауға дейін жеткізуді үйренеді.</p>
+      </div>
+      <div data-reveal="" style="padding:26px;border-radius:20px;background:linear-gradient(135deg,rgba(91,157,255,.16),rgba(56,225,255,.08));border:1px solid rgba(56,225,255,.25)">
+        <div style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:linear-gradient(100deg,#5b9dff,#38e1ff);color:#04111f"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"></path><circle cx="12" cy="12" r="10"></circle></svg></div>
+        <h3 data-i18n="why.t6" style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:18px;margin:16px 0 0">Тегін сынақ сабақ</h3>
+        <p data-i18n="why.d6" style="margin:9px 0 0;font-size:14.5px;line-height:1.6;color:#cdd6ee">Міндеттемесіз келіңіз — тренермен танысып, робот жинап көріңіз.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= REVIEWS ======================= -->
+<section id="reviews" style="position:relative;z-index:1;padding:90px 24px">
+  <div style="max-width:1240px;margin:0 auto">
+    <div data-reveal="" style="text-align:center;max-width:680px;margin:0 auto">
+      <div data-i18n="rev.eyebrow" style="font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#7fd9ff;font-weight:700">Ата-аналар пікірі</div>
+      <h2 data-i18n="rev.title" style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(28px,3.6vw,42px);line-height:1.1;margin:14px 0 0;letter-spacing:-.02em">Оларға жүздеген отбасы сенеді</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px;margin-top:46px">
+      <div data-reveal="" style="padding:28px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+        <div style="display:flex;gap:3px;color:#ffd166">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"></path></svg>
+        </div>
+        <p data-i18n="rev.q1" style="margin:16px 0 0;font-size:15.5px;line-height:1.65;color:#cdd6ee">«Ұлым екінші жыл қатысып жүр және робототехникамен өмір сүреді. Осы уақытта команда турнирлерге барды. Тренерлердің шынайы берілгенін көресіз.»</p>
+        <div style="display:flex;align-items:center;gap:12px;margin-top:20px">
+          <div style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#5b9dff,#38e1ff);color:#04111f;font-weight:800">А</div>
+          <div><div style="font-weight:700;font-size:15px">Айгерим Н.</div><div data-i18n="rev.r1" style="font-size:13px;color:#8190b0">оқушының анасы, 11 жас</div></div>
+        </div>
+      </div>
+      <div data-reveal="" style="padding:28px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+        <div style="display:flex;gap:3px;color:#ffd166">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"></path></svg>
+        </div>
+        <p data-i18n="rev.q2" style="margin:16px 0 0;font-size:15.5px;line-height:1.65;color:#cdd6ee">«Қызым Scratch-тен бастады, енді Arduino дәнекерлеп, программалайды. Мектеп оған инженерияға жол ашты. Атмосфера мен нәтиже үшін рахмет!»</p>
+        <div style="display:flex;align-items:center;gap:12px;margin-top:20px">
+          <div style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#5b9dff,#38e1ff);color:#04111f;font-weight:800">Д</div>
+          <div><div style="font-weight:700;font-size:15px">Данияр С.</div><div data-i18n="rev.r2" style="font-size:13px;color:#8190b0">оқушының әкесі, 13 жас</div></div>
+        </div>
+      </div>
+      <div data-reveal="" style="padding:28px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+        <div style="display:flex;gap:3px;color:#ffd166">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"></path></svg>
+        </div>
+        <p data-i18n="rev.q3" style="margin:16px 0 0;font-size:15.5px;line-height:1.65;color:#cdd6ee">«Ақтөбедегі ең үздік робототехника мектебі — бұл жарнама емес, біздің тәжірибеміз. Балам сабақты мерекедей күтеді, ал біз оның дағдысы мен сенімінің артқанын көреміз.»</p>
+        <div style="display:flex;align-items:center;gap:12px;margin-top:20px">
+          <div style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#5b9dff,#38e1ff);color:#04111f;font-weight:800">Г</div>
+          <div><div style="font-weight:700;font-size:15px">Гүлнар Т.</div><div data-i18n="rev.r3" style="font-size:13px;color:#8190b0">оқушының анасы, 8 жас</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FAQ ======================= -->
+<section id="faq" style="position:relative;z-index:1;padding:90px 24px">
+  <div style="max-width:860px;margin:0 auto">
+    <div data-reveal="" style="text-align:center">
+      <div data-i18n="faq.eyebrow" style="font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#7fd9ff;font-weight:700">Сұрақ-жауап</div>
+      <h2 data-i18n="faq.title" style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(28px,3.6vw,42px);line-height:1.1;margin:14px 0 0;letter-spacing:-.02em">Ең бастысы туралы қысқаша</h2>
+    </div>
+    <div data-reveal="" style="margin-top:36px;display:flex;flex-direction:column;gap:12px">
+      <details style="border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:4px 20px">
+        <summary style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 0;font-family:'Unbounded',sans-serif;font-weight:500;font-size:16.5px"><span data-i18n="faq.q1">Қай жастан бастауға болады?</span><span class="faq-chev" style="flex:none;transition:transform .25s;color:#7fd9ff"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+        <p data-i18n="faq.a1" style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#9fabc9">Біз балаларды 4 жастан WeDo 2.0 бағытына қабылдаймыз. Әр жасқа — өз бағдарламасы, сондықтан бала әрқашан өзіне ыңғайлы деңгейде оқиды.</p>
+      </details>
+      <details style="border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:4px 20px">
+        <summary style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 0;font-family:'Unbounded',sans-serif;font-weight:500;font-size:16.5px"><span data-i18n="faq.q2">Бастапқы білім қажет пе?</span><span class="faq-chev" style="flex:none;transition:transform .25s;color:#7fd9ff"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+        <p data-i18n="faq.a2" style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#9fabc9">Жоқ. Оқушылардың көбі нөлден бастайды. Тренер негіздерден бастап, баланы біртіндеп өзіндік жобалар мен жарыстарға жеткізеді.</p>
+      </details>
+      <details style="border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:4px 20px">
+        <summary style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 0;font-family:'Unbounded',sans-serif;font-weight:500;font-size:16.5px"><span data-i18n="faq.q3">Сабақ қанша уақытқа созылады?</span><span class="faq-chev" style="flex:none;transition:transform .25s;color:#7fd9ff"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+        <p data-i18n="faq.a3" style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#9fabc9">Сабақ жасы мен бағытына қарай 60–90 минут. Топтар шағын — 6–8 бала, әркімге тренердің назары жетеді.</p>
+      </details>
+      <details style="border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:4px 20px">
+        <summary style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 0;font-family:'Unbounded',sans-serif;font-weight:500;font-size:16.5px"><span data-i18n="faq.q4">Сынақ сабақ шынымен тегін бе?</span><span class="faq-chev" style="flex:none;transition:transform .25s;color:#7fd9ff"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+        <p data-i18n="faq.a4" style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#9fabc9">Иә, алғашқы сынақ сабақ толық тегін және ешқандай міндеттеме жүктемейді. Тренермен танысып, балаңыз робот жинап, программалап көреді.</p>
+      </details>
+      <details style="border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:4px 20px">
+        <summary style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 0;font-family:'Unbounded',sans-serif;font-weight:500;font-size:16.5px"><span data-i18n="faq.q5">Жарыстарға қатысуға бола ма?</span><span class="faq-chev" style="flex:none;transition:transform .25s;color:#7fd9ff"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+        <p data-i18n="faq.a5" style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#9fabc9">Әрине. Біз командаларды FLL, FTC және FIRST Global турнирлеріне мақсатты түрде дайындаймыз — қалалық кезеңдерден халықаралық квоталарға дейін.</p>
+      </details>
+      <details style="border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:4px 20px">
+        <summary style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 0;font-family:'Unbounded',sans-serif;font-weight:500;font-size:16.5px"><span data-i18n="faq.q6">Мектеп қайда орналасқан?</span><span class="faq-chev" style="flex:none;transition:transform .25s;color:#7fd9ff"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+        <p data-i18n="faq.a6" style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#9fabc9">Біз Ақтөбе қаласында, Марат Оспанов 67 мекенжайында орналасқанбыз. Картаны және маршрутты төмендегі «Байланыс» бөлімінен табасыз.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= CONTACTS + MAP ======================= -->
+<section id="contacts" style="position:relative;z-index:1;padding:90px 24px">
+  <div style="max-width:1240px;margin:0 auto">
+    <div data-reveal="" style="text-align:center;max-width:680px;margin:0 auto">
+      <div data-i18n="con.eyebrow" style="font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#7fd9ff;font-weight:700">Байланыс</div>
+      <h2 data-i18n="con.title" style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(28px,3.6vw,42px);line-height:1.1;margin:14px 0 0;letter-spacing:-.02em">Сізді қонаққа күтеміз</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:42px">
+      <div data-reveal="" style="display:flex;flex-direction:column;gap:14px">
+        <a href="tel:+77711055029" style="display:flex;align-items:center;gap:16px;padding:20px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);transition:border-color .2s" style-hover="border-color:rgba(56,225,255,.4)">
+          <div style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:rgba(56,225,255,.14);color:#7fd9ff;flex:none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></div>
+          <div><div data-i18n="con.lphone" style="font-size:13px;color:#8190b0">Телефон</div><div style="font-weight:700;font-size:17px;margin-top:2px">+7 771 105 5029</div></div>
+        </a>
+        <a href="mailto:aqtobe_robotics@mail.ru" style="display:flex;align-items:center;gap:16px;padding:20px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);transition:border-color .2s" style-hover="border-color:rgba(56,225,255,.4)">
+          <div style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:rgba(56,225,255,.14);color:#7fd9ff;flex:none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg></div>
+          <div><div data-i18n="con.lemail" style="font-size:13px;color:#8190b0">Email</div><div style="font-weight:700;font-size:17px;margin-top:2px">aqtobe_robotics@mail.ru</div></div>
+        </a>
+        <a href="https://instagram.com/aqtobe.robotics" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:16px;padding:20px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);transition:border-color .2s" style-hover="border-color:rgba(56,225,255,.4)">
+          <div style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:rgba(56,225,255,.14);color:#7fd9ff;flex:none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></div>
+          <div><div data-i18n="con.linsta" style="font-size:13px;color:#8190b0">Instagram</div><div style="font-weight:700;font-size:17px;margin-top:2px">@aqtobe.robotics</div></div>
+        </a>
+        <div style="display:flex;align-items:center;gap:16px;padding:20px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+          <div style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:rgba(56,225,255,.14);color:#7fd9ff;flex:none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+          <div><div data-i18n="con.laddr" style="font-size:13px;color:#8190b0">Мекенжай · Дс–Сб 10:00–19:00</div><div data-i18n="con.addr" style="font-weight:700;font-size:17px;margin-top:2px">Ақтөбе қ., Марат Оспанов 67</div></div>
+        </div>
+      </div>
+      <div data-reveal="" style="border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);min-height:360px;position:relative">
+        <iframe title="Карта" src="https://www.google.com/maps?q=Марат+Оспанова+67+Актобе&amp;output=embed" style="width:100%;height:100%;min-height:360px;border:0;filter:grayscale(.2) invert(.92) hue-rotate(180deg) contrast(.9)" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ENROLL FORM ======================= -->
+<section id="enroll" style="position:relative;z-index:1;padding:90px 24px 110px">
+  <div style="max-width:1100px;margin:0 auto;border-radius:28px;overflow:hidden;border:1px solid rgba(56,225,255,.2);background:linear-gradient(135deg,rgba(91,157,255,.14),rgba(56,225,255,.05));position:relative">
+    <div style="position:absolute;top:-30%;right:-10%;width:40%;height:80%;background:radial-gradient(circle,rgba(56,225,255,.25),transparent 65%);filter:blur(20px);pointer-events:none"></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:8px;position:relative">
+      <div style="padding:44px">
+        <div data-i18n="enr.badge" style="display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(56,225,255,.16);border:1px solid rgba(56,225,255,.3);font-size:12.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#9fe9ff">Сынақ сабақ — тегін</div>
+        <h2 data-i18n="enr.title" style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(26px,3.4vw,38px);line-height:1.1;margin:18px 0 0;letter-spacing:-.02em">Балаңызды алғашқы сабаққа жазыңыз</h2>
+        <p data-i18n="enr.p" style="margin:16px 0 0;font-size:16px;line-height:1.65;color:#9fabc9">Өтінім қалдырыңыз — біз күн ішінде хабарласып, жасына қарай бағыт таңдап, тегін сабаққа шақырамыз.</p>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-top:28px">
+          <div style="display:flex;align-items:center;gap:12px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7fd9ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="enr.ck1" style="font-size:15px;color:#cdd6ee">Міндеттемесіз және алдын ала төлемсіз</span></div>
+          <div style="display:flex;align-items:center;gap:12px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7fd9ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="enr.ck2" style="font-size:15px;color:#cdd6ee">4–16 жасқа қарай бағыт таңдау</span></div>
+          <div style="display:flex;align-items:center;gap:12px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7fd9ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="enr.ck3" style="font-size:15px;color:#cdd6ee">Ата-аналардың барлық сұрағына жауап береміз</span></div>
+        </div>
+      </div>
+      <div style="padding:44px;background:rgba(8,12,24,.55);backdrop-filter:blur(8px)">
+        <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;min-height:320px;gap:16px">
+            <div style="display:flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:linear-gradient(100deg,#5b9dff,#38e1ff);color:#04111f"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></div>
+            <h3 data-i18n="enr.successt" style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:22px;margin:0">Өтінім жіберілді!</h3>
+            <p data-i18n="enr.successp" style="font-size:15px;color:#9fabc9;margin:0;max-width:320px">Рахмет! Тегін сабақтың уақытын растау үшін жақын арада сізбен хабарласамыз.</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ onSubmit }}" action="https://formsubmit.co/aqtobe_robotics@mail.ru" method="POST" style="display:flex;flex-direction:column;gap:14px">
+            <div>
+              <label data-i18n="enr.lname" style="display:block;font-size:13px;font-weight:600;color:#aeb9d6;margin-bottom:7px">Ата-ананың аты</label>
+              <input name="Ата-ана / Родитель" type="text" required="" data-i18n-ph="ph.parent" placeholder="Мысалы, Айгерим" style="width:100%;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#eaf0ff;font-size:15px;outline:none" style-focus="border-color:#38e1ff">
+            </div>
+            <div>
+              <label data-i18n="enr.lphone" style="display:block;font-size:13px;font-weight:600;color:#aeb9d6;margin-bottom:7px">Телефон</label>
+              <input name="Телефон" type="tel" required="" inputmode="tel" onInput="{{ phoneInput }}" data-i18n-ph="ph.phone" placeholder="+7 ___ ___ __ __" style="width:100%;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#eaf0ff;font-size:15px;outline:none" style-focus="border-color:#38e1ff">
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+              <div>
+                <label data-i18n="enr.lage" style="display:block;font-size:13px;font-weight:600;color:#aeb9d6;margin-bottom:7px">Баланың жасы</label>
+                <input name="Баланың жасы / Возраст" type="number" min="4" max="16" required="" placeholder="4–16" style="width:100%;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#eaf0ff;font-size:15px;outline:none" style-focus="border-color:#38e1ff">
+              </div>
+              <div>
+                <label data-i18n="enr.ldir" style="display:block;font-size:13px;font-weight:600;color:#aeb9d6;margin-bottom:7px">Бағыт</label>
+                <select name="Бағыт / Направление" required="" style="width:100%;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#eaf0ff;font-size:15px;outline:none" style-focus="border-color:#38e1ff">
+                  <option value="" data-i18n="enr.opt0" style="background:#0a1120">Таңдаңыз</option>
+                  <option value="WeDo 2.0" style="background:#0a1120">WeDo 2.0</option>
+                  <option value="Scratch" style="background:#0a1120">Scratch</option>
+                  <option value="LEGO EV3" style="background:#0a1120">LEGO EV3</option>
+                  <option value="Arduino" style="background:#0a1120">Arduino</option>
+                  <option value="3D" style="background:#0a1120">3D</option>
+                  <option value="Дәнекерлеу / Пайка" style="background:#0a1120">Дәнекерлеу</option>
+                  <option value="Көмек қажет" data-i18n="enr.optlast" style="background:#0a1120">Таңдауға көмектесіңіз</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label data-i18n="enr.lcomment" style="display:block;font-size:13px;font-weight:600;color:#aeb9d6;margin-bottom:7px">Пікір</label>
+              <textarea name="Пікір / Комментарий" rows="3" data-i18n-ph="ph.comment" placeholder="Ыңғайлы уақыт, сұрақтар..." style="width:100%;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#eaf0ff;font-size:15px;outline:none;resize:vertical;font-family:inherit" style-focus="border-color:#38e1ff"></textarea>
+            </div>
+            <input type="hidden" name="_subject" value="Жаңа өтінім — Aqtobe Robotics">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <button type="submit" data-i18n="enr.btn" style="margin-top:6px;display:flex;align-items:center;justify-content:center;gap:9px;padding:16px;border-radius:12px;border:none;cursor:pointer;font-weight:700;font-size:16px;color:#04111f;background:linear-gradient(100deg,#5b9dff,#38e1ff);box-shadow:0 14px 32px -12px rgba(56,225,255,.85);transition:transform .2s" style-hover="transform:translateY(-2px)">Тегін сабаққа жазылу</button>
+            <p data-i18n="enr.consent" style="font-size:12px;color:#6c7a9c;text-align:center;margin:2px 0 0">Түймені басу арқылы сіз дербес деректерді өңдеуге келісім бересіз.</p>
+          </form>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FOOTER ======================= -->
+<footer style="position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);padding:48px 24px 40px">
+  <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:32px;align-items:start">
+    <div>
+      <span style="display:inline-flex;align-items:center;background:#fff;border-radius:12px;padding:8px 14px"><img src="images/logo.png" alt="Aqtobe Robotics" style="height:32px;width:auto;display:block"></span>
+      <p data-i18n="foot.tag" style="margin:16px 0 0;font-size:14.5px;line-height:1.6;color:#8190b0;max-width:320px">Ақтөбедегі №1 робототехника және программалау мектебі. 4 жастан 16 жасқа дейін болашақ инженерлерін тәрбиелейміз.</p>
+    </div>
+    <div>
+      <div data-i18n="foot.navtitle" style="font-weight:700;font-size:14px;color:#cdd6ee;margin-bottom:14px">Бөлімдер</div>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:14.5px;color:#8190b0">
+        <a href="#about" data-i18n="nav.about" style="transition:color .2s" style-hover="color:#fff">Мектеп туралы</a>
+        <a href="#directions" data-i18n="nav.directions" style="transition:color .2s" style-hover="color:#fff">Бағыттар</a>
+        <a href="#achievements" data-i18n="nav.achievements" style="transition:color .2s" style-hover="color:#fff">Жетістіктер</a>
+        <a href="#faq" style="transition:color .2s" style-hover="color:#fff">FAQ</a>
+      </div>
+    </div>
+    <div>
+      <div data-i18n="foot.contitle" style="font-weight:700;font-size:14px;color:#cdd6ee;margin-bottom:14px">Байланыс</div>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:14.5px;color:#8190b0">
+        <a href="tel:+77711055029" style="transition:color .2s" style-hover="color:#fff">+7 771 105 5029</a>
+        <a href="mailto:aqtobe_robotics@mail.ru" style="transition:color .2s" style-hover="color:#fff">aqtobe_robotics@mail.ru</a>
+        <a href="https://instagram.com/aqtobe.robotics" target="_blank" rel="noopener" style="transition:color .2s" style-hover="color:#fff">@aqtobe.robotics</a>
+        <span data-i18n="con.addr">Ақтөбе қ., Марат Оспанов 67</span>
+      </div>
+    </div>
+    <div>
+      <a href="#enroll" data-i18n="foot.cta" style="display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:700;font-size:14.5px;color:#04111f;background:linear-gradient(100deg,#5b9dff,#38e1ff)">Сынақ сабақ тегін</a>
+    </div>
+  </div>
+  <div style="max-width:1240px;margin:36px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,.07);display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;font-size:13px;color:#5d6a88">
+    <span data-i18n="foot.copy">© 2026 AQTOBE ROBOTICS. Барлық құқықтар қорғалған.</span>
+    <span data-i18n="foot.sub">Робототехника және программалау мектебі</span>
+  </div>
+</footer>
+
+<!-- ======================= COOKIE CONSENT ======================= -->
+<div style="{{ cookieWrapStyle }}">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px 24px;max-width:1100px;margin:0 auto;padding:18px 22px;border-radius:18px;background:rgba(12,18,34,.92);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 24px 60px -20px rgba(0,0,0,.85)">
+    <div style="display:flex;align-items:flex-start;gap:14px;flex:1 1 320px;min-width:260px">
+      <div style="display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;background:rgba(56,225,255,.14);color:#7fd9ff;flex:none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5v.01"/><path d="M16 15.5v.01"/><path d="M12 12v.01"/><path d="M11 17v.01"/><path d="M7 14v.01"/></svg></div>
+      <div>
+        <div data-i18n="cookie.title" style="font-weight:700;font-size:15px;color:#eaf0ff">Біз cookie файлдарын қолданамыз</div>
+        <p data-i18n="cookie.text" style="margin:5px 0 0;font-size:13.5px;line-height:1.55;color:#9fabc9">Сайтты ыңғайлы ету және трафикті талдау үшін cookie қолданамыз. «Қабылдау» түймесін басу арқылы келісім бересіз.</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;flex:none">
+      <button onClick="{{ declineCookies }}" data-i18n="cookie.decline" style="appearance:none;cursor:pointer;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);color:#cdd6ee;font-weight:600;font-size:14px;padding:12px 20px;border-radius:11px;font-family:inherit;transition:background .2s" style-hover="background:rgba(255,255,255,.1)">Бас тарту</button>
+      <button onClick="{{ acceptCookies }}" data-i18n="cookie.accept" style="appearance:none;cursor:pointer;border:none;color:#04111f;font-weight:700;font-size:14px;padding:12px 22px;border-radius:11px;font-family:inherit;background:linear-gradient(100deg,#5b9dff,#38e1ff);box-shadow:0 10px 24px -10px rgba(56,225,255,.8);transition:transform .2s" style-hover="transform:translateY(-2px)">Қабылдау</button>
+    </div>
+  </div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { menuOpen: false, submitted: false, cookie: 'unknown' };
+
+  renderVals() {
+    return {
+      menuStyle: this.state.menuOpen
+        ? { opacity: 1, transform: 'translateY(0)', transition: 'opacity .22s, transform .22s' }
+        : { opacity: 0, transform: 'translateY(-12px)', pointerEvents: 'none', transition: 'opacity .22s, transform .22s' },
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      setKz: () => this.setLang('kz'),
+      setRu: () => this.setLang('ru'),
+      submitted: this.state.submitted,
+      notSubmitted: !this.state.submitted,
+      cookieWrapStyle: (this.state.cookie === 'unknown')
+        ? { position: 'fixed', left: '16px', right: '16px', bottom: '16px', zIndex: 60, opacity: 1, transform: 'translateY(0)', transition: 'opacity .35s, transform .35s' }
+        : { position: 'fixed', left: '16px', right: '16px', bottom: '16px', zIndex: 60, opacity: 0, transform: 'translateY(20px)', pointerEvents: 'none', transition: 'opacity .35s, transform .35s' },
+      acceptCookies: () => { try { localStorage.setItem('ar_cookie', 'accepted'); } catch (e) {} this.setState({ cookie: 'accepted' }); },
+      declineCookies: () => { try { localStorage.setItem('ar_cookie', 'declined'); } catch (e) {} this.setState({ cookie: 'declined' }); },
+      phoneInput: (e) => {
+        // Only digits and a single leading +
+        let v = e.target.value.replace(/[^\d+]/g, '');
+        v = v.replace(/(?!^)\+/g, '');
+        e.target.value = v;
+      },
+      onSubmit: async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const fd = new FormData(form);
+        const data = {};
+        fd.forEach((val, key) => { data[key] = val; });
+        try {
+          const res = await fetch('https://formsubmit.co/ajax/aqtobe_robotics@mail.ru', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(data)
+          });
+          if (!res.ok) throw new Error('network');
+        } catch (err) {
+          // Fallback: open the visitor's mail client addressed to the school
+          const lines = Object.keys(data)
+            .filter(k => k[0] !== '_')
+            .map(k => k + ': ' + data[k]).join('\n');
+          window.location.href = 'mailto:aqtobe_robotics@mail.ru'
+            + '?subject=' + encodeURIComponent('Жаңа өтінім — Aqtobe Robotics')
+            + '&body=' + encodeURIComponent(lines);
+        }
+        this.setState({ submitted: true });
+      }
+    };
+  }
+
+  // ---------- i18n ----------
+  ru = {
+    'nav.about': 'О школе', 'nav.directions': 'Направления', 'nav.achievements': 'Достижения',
+    'nav.reviews': 'Отзывы', 'nav.team': 'Команда', 'nav.contacts': 'Контакты',
+    'nav.cta': 'Пробный урок', 'navm.enroll': 'Записаться на пробный урок',
+    'hero.badge': '№1 школа робототехники в Актобе',
+    'hero.title': "Воспитываем <span class='grad-text'>инженеров</span> будущего",
+    'hero.subtitle': "AQTOBE ROBOTICS — школа робототехники и программирования для детей <b style='color:#eaf0ff'>4–16 лет</b>. Готовим чемпионов международных турниров FIRST и помогаем ребёнку влюбиться в технологии.",
+    'hero.cta1': 'Записаться бесплатно', 'hero.cta2': 'Направления обучения',
+    'hero.s1': 'направлений', 'hero.s2': 'учеников', 'hero.s3': 'наград',
+    'chip1.sub': 'международные турниры', 'chip2.title': 'Турция · США', 'chip2.sub': 'квоты на турниры',
+    'video.eyebrow': 'Видеопрезентация', 'video.title': 'Один день в Aqtobe Robotics',
+    'trust.label': 'Участники программ',
+    'about.eyebrow': 'О школе', 'about.title': 'Не кружок, а инженерная команда',
+    'about.p1': 'Aqtobe Robotics — одна из ведущих школ робототехники в Актобе. Мы не просто собираем роботов из конструктора: наши ученики проектируют, программируют и защищают реальные инженерные проекты, выступая на республиканских и международных турнирах.',
+    'about.p2': "<b style='color:#eaf0ff'>Наша миссия</b> — формировать новое поколение инженеров, IT-специалистов и технологических лидеров через практику, соревнования и командную работу.",
+    'about.s1': 'возраст учеников', 'about.s2': 'человек в группе', 'about.s3': 'практики на занятии',
+    'dir.eyebrow': 'Направления обучения', 'dir.title': 'Путь от первого мотора до чемпионата',
+    'dir.sub': 'Шесть ступеней — каждый ребёнок начинает с уровня по возрасту и растёт до соревновательной команды.',
+    'dir.a1': '4–7 лет', 'dir.a2': '7–10 лет', 'dir.a3': '9–13 лет', 'dir.a4': '11–16 лет', 'dir.a5': '10–16 лет', 'dir.a6': '12–16 лет',
+    'dir.d1': 'Первые шаги в робототехнике с LEGO Education. Дети собирают простые механизмы и оживляют их блочным программированием на планшете, развивая моторику и инженерное мышление.',
+    'dir.d2': 'Визуальное программирование: ученики создают собственные игры, мультфильмы и интерактивные истории, осваивая алгоритмы, циклы и логику без сложного кода.',
+    'dir.d3': 'Сборка и программирование автономных роботов на LEGO Mindstorms EV3. Работа с датчиками и моторами, подготовка команд к соревнованиям FIRST LEGO League.',
+    'dir.d4': 'Электроника и микроконтроллеры Arduino: схемы, датчики, программирование на C++. Ученики создают реальные инженерные устройства и умные системы.',
+    'dir.d5': 'Проектирование деталей в Tinkercad и Fusion 360 с печатью на 3D-принтере. Полный путь от идеи до готового физического прототипа.',
+    'dir.d6': 'Основы схемотехники и безопасная работа с паяльником. Монтаж электронных плат, диагностика и сборка собственных устройств.',
+    'gal.eyebrow': 'Галерея', 'gal.title': 'Жизнь школы в кадрах',
+    'gal.sub': 'Занятия, турниры, поездки и победы.',
+    'vid.eyebrow': 'Видео', 'vid.title': 'Школа в движении',
+    'vid.sub': 'Моменты с занятий, роботов и соревнований.',
+    'nav.videos': 'Видео',
+    'ach.eyebrow': 'Достижения', 'ach.title': 'Наши ученики — на республиканской и мировой арене',
+    'ach.sub': 'Мы готовим команды к участию в международных программах FIRST LEGO League, FIRST Tech Challenge и FIRST Global Challenge.',
+    'ach.st1l': 'наград и номинаций', 'ach.st2l': 'квоты за рубеж (Турция, США)', 'ach.st3l': 'выпускников школы', 'ach.st4l': 'опыта подготовки команд',
+    'ach.c1title': 'Республиканский уровень',
+    'ach.c1b1': "<b style='color:#eaf0ff'>FTC и FLL Казахстан.</b> Постоянное участие в республиканских этапах лиг FIRST Tech Challenge и FIRST LEGO League, призовые места и путёвки на следующие этапы.",
+    'ach.c1b2': "<b style='color:#eaf0ff'>RoboLand, RoboZerde, Astana FIRST Regional.</b> Регулярные поездки на крупнейшие фестивали робототехники по всему Казахстану и призовые места.",
+    'ach.c1b3': "<b style='color:#eaf0ff'>Специальные награды.</b> Judges Choice, Innovate Award, Connect Award, Engineering Excellence Award за инженерные решения, дизайн и командную работу.",
+    'ach.c2title': 'Квоты на международные турниры',
+    'ach.c2b1': "<b style='color:#eaf0ff'>Турция.</b> Команда школы получила квоту и право представлять регион на международных соревнованиях по робототехнике в Турции.",
+    'ach.c2b2': "<b style='color:#eaf0ff'>США.</b> Квота на международные соревнования в Америке — высокая оценка уровня подготовки наших команд.",
+    'ach.c2b3': "<b style='color:#eaf0ff'>NASA Space Apps, AEROO Space Settlement.</b> Проектные направления школы в области космоса и инженерных инноваций.",
+    'ach.projtitle': 'Наши проекты', 'ach.projintro': 'В Aqtobe Robotics ученики работают над реальными инженерными задачами:',
+    'ach.p1': 'Сборка соревновательных роботов под сезонные задачи FTC/FLL',
+    'ach.p2': 'Автономное программирование и машинное зрение',
+    'ach.p3': 'Инженерная документация и 3D-моделирование',
+    'ach.p4': 'Разработка дронов и гуманоидных роботов',
+    'ach.p5': 'Презентация и защита технических проектов',
+    'why.eyebrow': 'Почему выбирают нас', 'why.title': 'Родители доверяют нам главное',
+    'why.t1': 'Тренеры-чемпионы', 'why.d1': 'Преподаватели с опытом подготовки команд к турнирам FIRST и личными наградами.',
+    'why.t2': 'Реальные соревнования', 'why.d2': 'Не теория, а турниры: от городских и республиканских до международных квот.',
+    'why.t3': 'Современное оборудование', 'why.d3': 'LEGO, Arduino, 3D-принтеры, дроны и паяльные станции — всё для практики.',
+    'why.t4': 'Малые группы', 'why.d4': 'По 6–8 человек в группе: каждый ребёнок получает внимание и работает руками.',
+    'why.t5': 'Проектное мышление', 'why.d5': 'Ребёнок учится доводить идею от чертежа до работающего устройства и его защиты.',
+    'why.t6': 'Бесплатный пробный урок', 'why.d6': 'Приходите без обязательств — познакомьтесь с тренером и попробуйте собрать робота.',
+    'rev.eyebrow': 'Отзывы родителей', 'rev.title': 'Им уже доверяют сотни семей',
+    'rev.q1': '«Сын ходит второй год и буквально живёт робототехникой. За это время команда ездила на турниры. Видно, что тренеры по-настоящему вовлечены.»',
+    'rev.r1': 'мама ученика, 11 лет',
+    'rev.q2': '«Дочка пришла на Scratch, а теперь паяет и программирует Arduino. Школа реально открыла ей дорогу в инженерию. Спасибо за атмосферу и результат!»',
+    'rev.r2': 'папа ученицы, 13 лет',
+    'rev.q3': '«Лучшая школа робототехники в Актобе — это не реклама, а наш опыт. Ребёнок ждёт занятий как праздника, а мы видим, как растут его навыки и уверенность.»',
+    'rev.r3': 'мама ученика, 8 лет',
+    'team.eyebrow': 'Команда', 'team.title': 'Наставники, которые ведут к победам', 'team.name': 'Имя Фамилия',
+    'team.role1': 'Главный тренер FTC', 'team.de1': 'Готовит команды к международным этапам, специалист по автономному программированию.',
+    'team.role2': 'Преподаватель LEGO / Scratch', 'team.de2': 'Работает с младшими группами, развивает алгоритмическое мышление через игру.',
+    'team.role3': 'Инженер Arduino / 3D', 'team.de3': 'Электроника, схемотехника и 3D-печать. Курирует проектные и космические направления.',
+    'team.role4': 'Руководитель школы', 'team.de4': 'Отвечает за методику, отбор команд и партнёрства с турнирами FIRST.',
+    'faq.eyebrow': 'Вопросы и ответы', 'faq.title': 'Коротко о главном',
+    'faq.q1': 'С какого возраста можно начинать?', 'faq.a1': 'Мы принимаем детей с 4 лет на направление WeDo 2.0. Для каждого возраста — своя программа, поэтому ребёнок всегда занимается на комфортном уровне.',
+    'faq.q2': 'Нужны ли начальные знания?', 'faq.a2': 'Нет. Большинство учеников приходят с нуля. Тренер начинает с основ и постепенно ведёт ребёнка к самостоятельным проектам и соревнованиям.',
+    'faq.q3': 'Сколько длится занятие?', 'faq.a3': 'Занятие длится 60–90 минут в зависимости от возраста и направления. Группы небольшие — 6–8 человек, чтобы каждому хватало внимания тренера.',
+    'faq.q4': 'Пробный урок действительно бесплатный?', 'faq.a4': 'Да, первый пробный урок полностью бесплатный и ни к чему не обязывает. Вы познакомитесь с тренером, а ребёнок попробует собрать и запрограммировать робота.',
+    'faq.q5': 'Можно ли участвовать в соревнованиях?', 'faq.a5': 'Конечно. Мы целенаправленно готовим команды к турнирам FLL, FTC и FIRST Global — от городских этапов до международных квот.',
+    'faq.q6': 'Где находится школа?', 'faq.a6': 'Мы находимся в Актобе по адресу Марат Оспанова 67. Карту и маршрут вы найдёте в разделе «Контакты» ниже.',
+    'con.eyebrow': 'Контакты', 'con.title': 'Будем рады видеть вас в гостях',
+    'con.lphone': 'Телефон', 'con.lemail': 'Email', 'con.linsta': 'Instagram',
+    'con.laddr': 'Адрес · Пн–Сб 10:00–19:00', 'con.addr': 'г. Актобе, Марат Оспанова 67',
+    'enr.badge': 'Пробный урок — бесплатно', 'enr.title': 'Запишите ребёнка на первый урок',
+    'enr.p': 'Оставьте заявку — мы перезвоним в течение дня, подберём направление по возрасту и пригласим на бесплатное занятие.',
+    'enr.ck1': 'Без обязательств и предоплаты', 'enr.ck2': 'Подбор направления по возрасту 4–16 лет', 'enr.ck3': 'Ответим на все вопросы родителей',
+    'enr.lname': 'Имя родителя', 'enr.lphone': 'Телефон', 'enr.lage': 'Возраст ребёнка', 'enr.ldir': 'Направление', 'enr.lcomment': 'Комментарий',
+    'enr.opt0': 'Выберите', 'enr.optlast': 'Помогите выбрать', 'enr.btn': 'Записаться на бесплатный урок',
+    'enr.consent': 'Нажимая кнопку, вы соглашаетесь на обработку персональных данных.',
+    'enr.successt': 'Заявка отправлена!', 'enr.successp': 'Спасибо! Мы свяжемся с вами в ближайшее время, чтобы подтвердить время бесплатного урока.',
+    'cookie.title': 'Мы используем cookie', 'cookie.text': 'Мы используем cookie, чтобы сделать сайт удобнее и анализировать трафик. Нажимая «Принять», вы даёте согласие.',
+    'cookie.accept': 'Принять', 'cookie.decline': 'Отклонить',
+    'foot.tag': '№1 школа робототехники и программирования в Актобе. Воспитываем инженеров будущего с 4 до 16 лет.',
+    'foot.navtitle': 'Навигация', 'foot.contitle': 'Контакты', 'foot.cta': 'Пробный урок бесплатно',
+    'foot.copy': '© 2026 AQTOBE ROBOTICS. Все права защищены.', 'foot.sub': 'Школа робототехники и программирования'
+  };
+  ruPh = { 'ph.parent': 'Например, Айгерим', 'ph.phone': '+7 ___ ___ __ __', 'ph.comment': 'Удобное время, вопросы...' };
+
+  setLang(lang) {
+    this._lang = lang;
+    try { localStorage.setItem('ar_lang', lang); } catch (e) {}
+    this.applyLang(lang);
+  }
+
+  applyLang(lang) {
+    const root = this.el || document;
+    root.querySelectorAll('[data-i18n]').forEach(el => {
+      const k = el.getAttribute('data-i18n');
+      if (lang === 'ru') { if (this.ru[k] != null) el.innerHTML = this.ru[k]; }
+      else if (this._kz[k] != null) el.innerHTML = this._kz[k];
+    });
+    root.querySelectorAll('[data-i18n-ph]').forEach(el => {
+      const k = el.getAttribute('data-i18n-ph');
+      const v = (lang === 'ru') ? this.ruPh[k] : this._kzPh[k];
+      if (v != null) el.setAttribute('placeholder', v);
+    });
+    document.documentElement.lang = (lang === 'ru') ? 'ru' : 'kk';
+    const kzb = document.getElementById('langKz');
+    const rub = document.getElementById('langRu');
+    if (kzb && rub) {
+      const base = 'border:none;cursor:pointer;font-weight:800;font-size:12.5px;padding:8px 12px;font-family:inherit;';
+      const on = 'background:linear-gradient(100deg,#5b9dff,#38e1ff);color:#04111f';
+      const off = 'background:transparent;color:#9fabc9';
+      kzb.style.cssText = base + (lang === 'ru' ? off : on);
+      rub.style.cssText = base + (lang === 'ru' ? on : off);
+    }
+  }
+
+  reveal(el, instant) {
+    if (instant) el.style.transition = 'none';
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  }
+
+  runCounter(el) {
+    if (el._counted) return;
+    el._counted = true;
+    const target = parseInt(el.getAttribute('data-count'), 10) || 0;
+    const suffix = el.getAttribute('data-suffix') || '';
+    const dur = 1400;
+    const start = performance.now();
+    const tick = (now) => {
+      const p = Math.min(1, (now - start) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased) + (p === 1 ? suffix : '');
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  componentDidMount() {
+    const root = this.el || document;
+
+    // Restore cookie consent decision.
+    try {
+      const c = localStorage.getItem('ar_cookie');
+      if (c === 'accepted' || c === 'declined') this.setState({ cookie: c });
+    } catch (e) {}
+
+    // Snapshot Kazakh originals, then apply stored language.
+    this._kz = {};
+    root.querySelectorAll('[data-i18n]').forEach(el => {
+      const k = el.getAttribute('data-i18n');
+      if (this._kz[k] == null) this._kz[k] = el.innerHTML;
+    });
+    this._kzPh = {};
+    root.querySelectorAll('[data-i18n-ph]').forEach(el => {
+      this._kzPh[el.getAttribute('data-i18n-ph')] = el.getAttribute('placeholder');
+    });
+    let stored = 'kz';
+    try { stored = localStorage.getItem('ar_lang') || 'kz'; } catch (e) {}
+    this._lang = stored;
+    if (stored === 'ru') this.applyLang('ru');
+
+    // ----- reveal + counters (timeline-frozen safe) -----
+    const inView = (el) => {
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      return r.top < vh * 0.9 && r.bottom > 0;
+    };
+    const items = Array.from(root.querySelectorAll('[data-reveal]'));
+    items.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(28px)';
+      el.style.transition = 'opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)';
+    });
+    const counters = Array.from(root.querySelectorAll('[data-count]'));
+
+    requestAnimationFrame(() => {
+      items.forEach(el => { if (inView(el)) this.reveal(el); });
+      counters.forEach(el => { if (inView(el)) this.runCounter(el); });
+    });
+
+    let io = null, cio = null;
+    if ('IntersectionObserver' in window) {
+      io = new IntersectionObserver((entries) => {
+        entries.forEach(en => { if (en.isIntersecting) { this.reveal(en.target); io.unobserve(en.target); } });
+      }, { threshold: 0.12 });
+      items.forEach(el => io.observe(el));
+      cio = new IntersectionObserver((entries) => {
+        entries.forEach(en => { if (en.isIntersecting) { this.runCounter(en.target); cio.unobserve(en.target); } });
+      }, { threshold: 0.5 });
+      counters.forEach(el => cio.observe(el));
+    }
+
+    const onScroll = () => {
+      items.forEach(el => { if (inView(el)) this.reveal(el); });
+      counters.forEach(el => { if (inView(el)) this.runCounter(el); });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    document.addEventListener('scroll', onScroll, { passive: true, capture: true });
+
+    this._safety = setTimeout(() => {
+      items.forEach(el => this.reveal(el, true));
+      counters.forEach(el => this.runCounter(el));
+    }, 700);
+
+    this._io = io; this._cio = cio; this._onScroll = onScroll;
+  }
+
+  componentWillUnmount() {
+    if (this._io) this._io.disconnect();
+    if (this._cio) this._cio.disconnect();
+    if (this._safety) clearTimeout(this._safety);
+    if (this._onScroll) {
+      window.removeEventListener('scroll', this._onScroll);
+      document.removeEventListener('scroll', this._onScroll, true);
+    }
+  }
+}
+</script>
+</body>
+</html>
