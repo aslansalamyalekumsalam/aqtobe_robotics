@@ -32,12 +32,34 @@
   @keyframes drift2{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(-16px,16px) rotate(-10deg)}}
   @keyframes spinslow{to{transform:rotate(360deg)}}
   .nav-burger{display:none}
+  /* Якорь-ссылки не должны заезжать под фиксированную шапку */
+  html{scroll-padding-top:96px}
   @media(max-width:880px){
     .nav-links{display:none!important}
     .nav-cta-d{display:none!important}
     .nav-burger{display:flex!important}
   }
   @media(min-width:881px){.mobile-menu{display:none!important}}
+  /* ================= МОБИЛЬНАЯ АДАПТАЦИЯ (десктоп не затрагивается) ================= */
+  @media(max-width:880px){
+    /* hero в одну колонку, меньше верхний отступ */
+    .m-hero-sec{padding-top:104px!important;padding-bottom:56px!important}
+    .m-hero-grid{grid-template-columns:1fr!important;gap:26px!important}
+  }
+  @media(max-width:640px){
+    /* сетки, чьи минимумы шире экрана телефона — принудительно в одну колонку,
+       чтобы не было горизонтального сдвига («криво») */
+    [style*="minmax(440px"],[style*="minmax(320px"],[style*="minmax(300px"],
+    [style*="minmax(290px"],[style*="minmax(260px"]{grid-template-columns:1fr!important}
+    /* уменьшаем фото и видео только на телефоне.
+       ВНИМАНИЕ: .m-hero-media — это ГРИД-ЭЛЕМЕНТ; авто-поля на нём ломают
+       растяжку и он схлопывается (внутри всё абсолютное). Поэтому его не
+       центрируем/не сужаем — на телефоне он и так в одну колонку. */
+    .m-vids{max-width:420px;margin-left:auto!important;margin-right:auto!important}
+    .m-photos{grid-auto-rows:150px!important}
+    /* немного компактнее вертикальные отступы секций */
+    section{padding-left:18px!important;padding-right:18px!important}
+  }
   details>summary{list-style:none;cursor:pointer}
   details>summary::-webkit-details-marker{display:none}
   details[open] .faq-chev{transform:rotate(45deg)}
@@ -117,14 +139,14 @@
       <a href="#reviews" data-i18n="nav.reviews" onClick="{{ closeMenu }}" style="padding:13px 14px;border-radius:12px;font-weight:600;color:#cdd6ee" style-hover="background:rgba(255,255,255,.06)">Пікірлер</a>
       <a href="#faq" onClick="{{ closeMenu }}" style="padding:13px 14px;border-radius:12px;font-weight:600;color:#cdd6ee" style-hover="background:rgba(255,255,255,.06)">FAQ</a>
       <a href="#contacts" data-i18n="nav.contacts" onClick="{{ closeMenu }}" style="padding:13px 14px;border-radius:12px;font-weight:600;color:#cdd6ee" style-hover="background:rgba(255,255,255,.06)">Байланыс</a>
-      <a href="#enroll" data-i18n="navm.enroll" onClick="{{ closeMenu }}" style="margin-top:6px;text-align:center;padding:14px;border-radius:12px;font-weight:700;color:#04111f;background:linear-gradient(100deg,#5b9dff,#38e1ff)">Тегін сабаққа жазылу</a>
+      <a href="#enroll" data-i18n="navm.enroll" onClick="{{ closeMenu }}" style="margin-top:6px;text-align:center;padding:14px;border-radius:12px;font-weight:700;color:#04111f;background:linear-gradient(100deg,#5b9dff,#38e1ff)">Сынақ сабаққа жазылу</a>
     </div>
   </div>
 </header>
 
 <!-- ======================= HERO ======================= -->
-<section id="home" style="position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:140px 24px 80px">
-  <div style="width:100%;max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:48px;align-items:center">
+<section id="home" class="m-hero-sec" style="position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:140px 24px 80px">
+  <div class="m-hero-grid" style="width:100%;max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:48px;align-items:center">
     <!-- left -->
     <div data-reveal="">
       <div style="display:inline-flex;align-items:center;gap:9px;padding:8px 15px;border-radius:999px;background:rgba(56,225,255,.1);border:1px solid rgba(56,225,255,.28);font-size:13px;font-weight:700;letter-spacing:.04em;color:#9fe9ff;text-transform:uppercase">
@@ -138,7 +160,7 @@
         AQTOBE ROBOTICS — робототехника және программалау мектебі, <b style="color:#eaf0ff">4–16 жас</b> аралығындағы балаларға арналған. FIRST халықаралық турнирлерінің чемпиондарын дайындап, балаңыздың технологияға деген қызығушылығын оятамыз.
       </p>
       <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:34px">
-        <a href="#enroll" data-i18n="hero.cta1" style="display:flex;align-items:center;gap:9px;padding:16px 26px;border-radius:14px;font-weight:700;font-size:16px;color:#04111f;background:linear-gradient(100deg,#5b9dff,#38e1ff);box-shadow:0 16px 38px -12px rgba(56,225,255,.85);transition:transform .2s" style-hover="transform:translateY(-3px)">Тегін жазылу</a>
+        <a href="#enroll" data-i18n="hero.cta1" style="display:flex;align-items:center;gap:9px;padding:16px 26px;border-radius:14px;font-weight:700;font-size:16px;color:#04111f;background:linear-gradient(100deg,#5b9dff,#38e1ff);box-shadow:0 16px 38px -12px rgba(56,225,255,.85);transition:transform .2s" style-hover="transform:translateY(-3px)">Сабаққа жазылу</a>
         <a href="#directions" data-i18n="hero.cta2" style="display:flex;align-items:center;gap:9px;padding:16px 24px;border-radius:14px;font-weight:700;font-size:16px;color:#eaf0ff;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);transition:background .2s" style-hover="background:rgba(255,255,255,.1)">Оқу бағыттары</a>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:30px;margin-top:44px">
@@ -150,7 +172,7 @@
       </div>
     </div>
     <!-- right visual: video slot -->
-    <div data-reveal="" style="position:relative">
+    <div data-reveal="" class="m-hero-media" style="position:relative">
       <div style="position:absolute;inset:-1px;border-radius:26px;background:linear-gradient(140deg,rgba(91,157,255,.5),rgba(56,225,255,.2),transparent);filter:blur(2px);opacity:.7"></div>
       <div style="position:relative;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:#0a1120;box-shadow:0 40px 80px -30px rgba(0,0,0,.9)">
         <!-- HERO VIDEO — свой файл из папки uploads/ (автозапуск, без звука, зациклено).
@@ -322,7 +344,7 @@
       </div>
       <p data-i18n="gal.sub" style="max-width:380px;font-size:15.5px;line-height:1.6;color:#8190b0;margin:0">Сабақтар, турнирлер, сапарлар мен жеңістер.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));grid-auto-rows:210px;gap:14px;margin-top:40px">
+    <div class="m-photos" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));grid-auto-rows:210px;gap:14px;margin-top:40px">
       <image-slot id="gal-1" style="width:100%;height:100%;grid-row:span 2" shape="rounded" radius="18" placeholder="photo1.jpg"></image-slot>
       <image-slot id="gal-2" style="width:100%;height:100%" shape="rounded" radius="18" placeholder="photo2.jpg"></image-slot>
       <image-slot id="gal-3" style="width:100%;height:100%" shape="rounded" radius="18" placeholder="photo3.jpg"></image-slot>
@@ -341,7 +363,7 @@
       </div>
       <p data-i18n="vid.sub" style="max-width:420px;font-size:15.5px;line-height:1.6;color:#8190b0;margin:0">Сабақтар, роботтар мен жарыстардан үзінділер.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:40px">
+    <div class="m-vids" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:40px">
       <div data-reveal="" style="position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#0a1120;aspect-ratio:16/9">
         <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:#4a5878;text-align:center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg><span style="font-size:12px;font-weight:600">videos/video2.mp4</span></div>
         <video src="videos/video2.mp4" autoplay muted loop controls playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0"></video>
@@ -460,7 +482,7 @@
       </div>
       <div data-reveal="" style="padding:26px;border-radius:20px;background:linear-gradient(135deg,rgba(91,157,255,.16),rgba(56,225,255,.08));border:1px solid rgba(56,225,255,.25)">
         <div style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:linear-gradient(100deg,#5b9dff,#38e1ff);color:#04111f"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"></path><circle cx="12" cy="12" r="10"></circle></svg></div>
-        <h3 data-i18n="why.t6" style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:18px;margin:16px 0 0">Тегін сынақ сабақ</h3>
+        <h3 data-i18n="why.t6" style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:18px;margin:16px 0 0">Сынақ сабақ</h3>
         <p data-i18n="why.d6" style="margin:9px 0 0;font-size:14.5px;line-height:1.6;color:#cdd6ee">Міндеттемесіз келіңіз — тренермен танысып, робот жинап көріңіз.</p>
       </div>
     </div>
@@ -530,8 +552,8 @@
         <p data-i18n="faq.a3" style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#9fabc9">Сабақ жасы мен бағытына қарай 60–90 минут. Топтар шағын — 6–8 бала, әркімге тренердің назары жетеді.</p>
       </details>
       <details style="border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:4px 20px">
-        <summary style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 0;font-family:'Unbounded',sans-serif;font-weight:500;font-size:16.5px"><span data-i18n="faq.q4">Сынақ сабақ шынымен тегін бе?</span><span class="faq-chev" style="flex:none;transition:transform .25s;color:#7fd9ff"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
-        <p data-i18n="faq.a4" style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#9fabc9">Иә, алғашқы сынақ сабақ толық тегін және ешқандай міндеттеме жүктемейді. Тренермен танысып, балаңыз робот жинап, программалап көреді.</p>
+        <summary style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 0;font-family:'Unbounded',sans-serif;font-weight:500;font-size:16.5px"><span data-i18n="faq.q4">Сынақ сабақ қалай өтеді?</span><span class="faq-chev" style="flex:none;transition:transform .25s;color:#7fd9ff"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+        <p data-i18n="faq.a4" style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#9fabc9">Иә, алғашқы сынақ сабаққа жазылуға болады. Ол ешқандай міндеттеме жүктемейді: тренермен танысып, балаңыз робот жинап, программалап көреді.</p>
       </details>
       <details style="border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:4px 20px">
         <summary style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 0;font-family:'Unbounded',sans-serif;font-weight:500;font-size:16.5px"><span data-i18n="faq.q5">Жарыстарға қатысуға бола ма?</span><span class="faq-chev" style="flex:none;transition:transform .25s;color:#7fd9ff"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
@@ -584,9 +606,9 @@
     <div style="position:absolute;top:-30%;right:-10%;width:40%;height:80%;background:radial-gradient(circle,rgba(56,225,255,.25),transparent 65%);filter:blur(20px);pointer-events:none"></div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:8px;position:relative">
       <div style="padding:44px">
-        <div data-i18n="enr.badge" style="display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(56,225,255,.16);border:1px solid rgba(56,225,255,.3);font-size:12.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#9fe9ff">Сынақ сабақ — тегін</div>
+        <div data-i18n="enr.badge" style="display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(56,225,255,.16);border:1px solid rgba(56,225,255,.3);font-size:12.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#9fe9ff">Сынақ сабаққа жазылу</div>
         <h2 data-i18n="enr.title" style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(26px,3.4vw,38px);line-height:1.1;margin:18px 0 0;letter-spacing:-.02em">Балаңызды алғашқы сабаққа жазыңыз</h2>
-        <p data-i18n="enr.p" style="margin:16px 0 0;font-size:16px;line-height:1.65;color:#9fabc9">Өтінім қалдырыңыз — біз күн ішінде хабарласып, жасына қарай бағыт таңдап, тегін сабаққа шақырамыз.</p>
+        <p data-i18n="enr.p" style="margin:16px 0 0;font-size:16px;line-height:1.65;color:#9fabc9">Өтінім қалдырыңыз — біз күн ішінде хабарласып, жасына қарай бағыт таңдап, сынақ сабаққа шақырамыз.</p>
         <div style="display:flex;flex-direction:column;gap:14px;margin-top:28px">
           <div style="display:flex;align-items:center;gap:12px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7fd9ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="enr.ck1" style="font-size:15px;color:#cdd6ee">Міндеттемесіз және алдын ала төлемсіз</span></div>
           <div style="display:flex;align-items:center;gap:12px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7fd9ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="enr.ck2" style="font-size:15px;color:#cdd6ee">4–16 жасқа қарай бағыт таңдау</span></div>
@@ -598,7 +620,7 @@
           <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;min-height:320px;gap:16px">
             <div style="display:flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:linear-gradient(100deg,#5b9dff,#38e1ff);color:#04111f"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></div>
             <h3 data-i18n="enr.successt" style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:22px;margin:0">Өтінім жіберілді!</h3>
-            <p data-i18n="enr.successp" style="font-size:15px;color:#9fabc9;margin:0;max-width:320px">Рахмет! Тегін сабақтың уақытын растау үшін жақын арада сізбен хабарласамыз.</p>
+            <p data-i18n="enr.successp" style="font-size:15px;color:#9fabc9;margin:0;max-width:320px">Рахмет! Сынақ сабақтың уақытын растау үшін жақын арада сізбен хабарласамыз.</p>
           </div>
         </sc-if>
         <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
@@ -637,7 +659,7 @@
             <input type="hidden" name="_subject" value="Жаңа өтінім — Aqtobe Robotics">
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_template" value="table">
-            <button type="submit" data-i18n="enr.btn" style="margin-top:6px;display:flex;align-items:center;justify-content:center;gap:9px;padding:16px;border-radius:12px;border:none;cursor:pointer;font-weight:700;font-size:16px;color:#04111f;background:linear-gradient(100deg,#5b9dff,#38e1ff);box-shadow:0 14px 32px -12px rgba(56,225,255,.85);transition:transform .2s" style-hover="transform:translateY(-2px)">Тегін сабаққа жазылу</button>
+            <button type="submit" data-i18n="enr.btn" style="margin-top:6px;display:flex;align-items:center;justify-content:center;gap:9px;padding:16px;border-radius:12px;border:none;cursor:pointer;font-weight:700;font-size:16px;color:#04111f;background:linear-gradient(100deg,#5b9dff,#38e1ff);box-shadow:0 14px 32px -12px rgba(56,225,255,.85);transition:transform .2s" style-hover="transform:translateY(-2px)">Сынақ сабаққа жазылу</button>
             <p data-i18n="enr.consent" style="font-size:12px;color:#6c7a9c;text-align:center;margin:2px 0 0">Түймені басу арқылы сіз дербес деректерді өңдеуге келісім бересіз.</p>
           </form>
         </sc-if>
@@ -672,7 +694,7 @@
       </div>
     </div>
     <div>
-      <a href="#enroll" data-i18n="foot.cta" style="display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:700;font-size:14.5px;color:#04111f;background:linear-gradient(100deg,#5b9dff,#38e1ff)">Сынақ сабақ тегін</a>
+      <a href="#enroll" data-i18n="foot.cta" style="display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:700;font-size:14.5px;color:#04111f;background:linear-gradient(100deg,#5b9dff,#38e1ff)">Сынақ сабақ</a>
     </div>
   </div>
   <div style="max-width:1240px;margin:36px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,.07);display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;font-size:13px;color:#5d6a88">
@@ -762,7 +784,7 @@ class Component extends DCLogic {
     'hero.badge': '№1 школа робототехники в Актобе',
     'hero.title': "Воспитываем <span class='grad-text'>инженеров</span> будущего",
     'hero.subtitle': "AQTOBE ROBOTICS — школа робототехники и программирования для детей <b style='color:#eaf0ff'>4–16 лет</b>. Готовим чемпионов международных турниров FIRST и помогаем ребёнку влюбиться в технологии.",
-    'hero.cta1': 'Записаться бесплатно', 'hero.cta2': 'Направления обучения',
+    'hero.cta1': 'Записаться на урок', 'hero.cta2': 'Направления обучения',
     'hero.s1': 'направлений', 'hero.s2': 'учеников', 'hero.s3': 'наград',
     'chip1.sub': 'международные турниры', 'chip2.title': 'Турция · США', 'chip2.sub': 'квоты на турниры',
     'video.eyebrow': 'Видеопрезентация', 'video.title': 'Один день в Aqtobe Robotics',
@@ -808,7 +830,7 @@ class Component extends DCLogic {
     'why.t3': 'Современное оборудование', 'why.d3': 'LEGO, Arduino, 3D-принтеры, дроны и паяльные станции — всё для практики.',
     'why.t4': 'Малые группы', 'why.d4': 'По 6–8 человек в группе: каждый ребёнок получает внимание и работает руками.',
     'why.t5': 'Проектное мышление', 'why.d5': 'Ребёнок учится доводить идею от чертежа до работающего устройства и его защиты.',
-    'why.t6': 'Бесплатный пробный урок', 'why.d6': 'Приходите без обязательств — познакомьтесь с тренером и попробуйте собрать робота.',
+    'why.t6': 'Пробный урок', 'why.d6': 'Приходите без обязательств — познакомьтесь с тренером и попробуйте собрать робота.',
     'rev.eyebrow': 'Отзывы родителей', 'rev.title': 'Им уже доверяют сотни семей',
     'rev.q1': '«Сын ходит второй год и буквально живёт робототехникой. За это время команда ездила на турниры. Видно, что тренеры по-настоящему вовлечены.»',
     'rev.r1': 'мама ученика, 11 лет',
@@ -825,23 +847,23 @@ class Component extends DCLogic {
     'faq.q1': 'С какого возраста можно начинать?', 'faq.a1': 'Мы принимаем детей с 4 лет на направление WeDo 2.0. Для каждого возраста — своя программа, поэтому ребёнок всегда занимается на комфортном уровне.',
     'faq.q2': 'Нужны ли начальные знания?', 'faq.a2': 'Нет. Большинство учеников приходят с нуля. Тренер начинает с основ и постепенно ведёт ребёнка к самостоятельным проектам и соревнованиям.',
     'faq.q3': 'Сколько длится занятие?', 'faq.a3': 'Занятие длится 60–90 минут в зависимости от возраста и направления. Группы небольшие — 6–8 человек, чтобы каждому хватало внимания тренера.',
-    'faq.q4': 'Пробный урок действительно бесплатный?', 'faq.a4': 'Да, первый пробный урок полностью бесплатный и ни к чему не обязывает. Вы познакомитесь с тренером, а ребёнок попробует собрать и запрограммировать робота.',
+    'faq.q4': 'Как проходит пробный урок?', 'faq.a4': 'На первый пробный урок можно записаться, и он ни к чему не обязывает. Вы познакомитесь с тренером, а ребёнок попробует собрать и запрограммировать робота.',
     'faq.q5': 'Можно ли участвовать в соревнованиях?', 'faq.a5': 'Конечно. Мы целенаправленно готовим команды к турнирам FLL, FTC и FIRST Global — от городских этапов до международных квот.',
     'faq.q6': 'Где находится школа?', 'faq.a6': 'Мы находимся в Актобе по адресу Марат Оспанова 67. Карту и маршрут вы найдёте в разделе «Контакты» ниже.',
     'con.eyebrow': 'Контакты', 'con.title': 'Будем рады видеть вас в гостях',
     'con.lphone': 'Телефон', 'con.lemail': 'Email', 'con.linsta': 'Instagram',
     'con.laddr': 'Адрес · Пн–Сб 10:00–19:00', 'con.addr': 'г. Актобе, Марат Оспанова 67',
-    'enr.badge': 'Пробный урок — бесплатно', 'enr.title': 'Запишите ребёнка на первый урок',
-    'enr.p': 'Оставьте заявку — мы перезвоним в течение дня, подберём направление по возрасту и пригласим на бесплатное занятие.',
+    'enr.badge': 'Запись на пробный урок', 'enr.title': 'Запишите ребёнка на первый урок',
+    'enr.p': 'Оставьте заявку — мы перезвоним в течение дня, подберём направление по возрасту и пригласим на пробное занятие.',
     'enr.ck1': 'Без обязательств и предоплаты', 'enr.ck2': 'Подбор направления по возрасту 4–16 лет', 'enr.ck3': 'Ответим на все вопросы родителей',
     'enr.lname': 'Имя родителя', 'enr.lphone': 'Телефон', 'enr.lage': 'Возраст ребёнка', 'enr.ldir': 'Направление', 'enr.lcomment': 'Комментарий',
-    'enr.opt0': 'Выберите', 'enr.optlast': 'Помогите выбрать', 'enr.btn': 'Записаться на бесплатный урок',
+    'enr.opt0': 'Выберите', 'enr.optlast': 'Помогите выбрать', 'enr.btn': 'Записаться на пробный урок',
     'enr.consent': 'Нажимая кнопку, вы соглашаетесь на обработку персональных данных.',
-    'enr.successt': 'Заявка отправлена!', 'enr.successp': 'Спасибо! Мы свяжемся с вами в ближайшее время, чтобы подтвердить время бесплатного урока.',
+    'enr.successt': 'Заявка отправлена!', 'enr.successp': 'Спасибо! Мы свяжемся с вами в ближайшее время, чтобы подтвердить время пробного урока.',
     'cookie.title': 'Мы используем cookie', 'cookie.text': 'Мы используем cookie, чтобы сделать сайт удобнее и анализировать трафик. Нажимая «Принять», вы даёте согласие.',
     'cookie.accept': 'Принять', 'cookie.decline': 'Отклонить',
     'foot.tag': '№1 школа робототехники и программирования в Актобе. Воспитываем инженеров будущего с 4 до 16 лет.',
-    'foot.navtitle': 'Навигация', 'foot.contitle': 'Контакты', 'foot.cta': 'Пробный урок бесплатно',
+    'foot.navtitle': 'Навигация', 'foot.contitle': 'Контакты', 'foot.cta': 'Пробный урок',
     'foot.copy': '© 2026 AQTOBE ROBOTICS. Все права защищены.', 'foot.sub': 'Школа робототехники и программирования'
   };
   ruPh = { 'ph.parent': 'Например, Айгерим', 'ph.phone': '+7 ___ ___ __ __', 'ph.comment': 'Удобное время, вопросы...' };
